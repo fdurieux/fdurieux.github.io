@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Legible</title>
+<meta name="description" content="Legible: a programme to make everything upstream of code query-able for humans and AI, and quality-gated before it reaches a developer or a dev-agent.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; the pipeline map is a four-column band that stacks on phones. */
+:root {
+  --bg: #f3f5f3;
+  --surface: #ffffff;
+  --fg: #1b2126;
+  --muted: #5c6872;
+  --rule: #d5dbd8;
+  --accent: #1f6f5a;
+  --accent-soft: #e0efe9;
+  --covered: #1f6f5a;  --covered-soft: #e0efe9;
+  --practice: #35598a; --practice-soft: #e1e9f4;
+  --planned: #9c6610;  --planned-soft: #f8edd3;
+  --open: #a8423f;     --open-soft: #f7e2e1;
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --body: "Source Sans 3", "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: "JetBrains Mono", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12181a; --surface: #1a2225; --fg: #e5eae8; --muted: #9fadb0; --rule: #2c383b;
+    --accent: #6cc3a6; --accent-soft: #173229;
+    --covered: #6cc3a6; --covered-soft: #173229;
+    --practice: #8fb3e6; --practice-soft: #1b2a3d;
+    --planned: #e2b25c; --planned-soft: #3a2c10;
+    --open: #ef8e8a;    --open-soft: #3d1f1e;
+    color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+html { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font-family: var(--body); font-size: 17px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 4rem;
+}
+img { max-width: 100%; }
+.wrap { max-width: 1000px; margin: 0 auto; }
+header.hero { padding-block: 3.5rem 2rem; border-bottom: 1px solid var(--rule); }
+.eyebrow { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+h1 { font-family: var(--display); font-weight: 600; font-size: clamp(2.6rem, 7vw, 4.2rem); line-height: 1; margin: 0.5rem 0 1rem; letter-spacing: -0.01em; }
+h1 span { color: var(--accent); }
+.thesis { font-family: var(--display); font-weight: 500; font-size: clamp(1.25rem, 2.6vw, 1.6rem); line-height: 1.35; max-width: 34em; margin: 0 0 1.2rem; text-wrap: balance; }
+h2 { font-family: var(--display); font-weight: 600; font-size: 1.7rem; line-height: 1.2; margin: 3rem 0 0.9rem; text-wrap: balance; }
+h3 { font-weight: 600; font-size: 1.1rem; margin: 1.8rem 0 0.5rem; }
+p, li { max-width: 66ch; }
+p { margin: 0 0 1rem; }
+.meta { color: var(--muted); font-size: 0.95rem; }
+ul, ol { padding-left: 1.3rem; margin: 0 0 1rem; }
+li { margin-bottom: 0.5rem; }
+strong { font-weight: 600; }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+code { font-family: var(--mono); font-size: 0.86em; background: var(--accent-soft); padding: 0.05rem 0.3rem; border-radius: 3px; }
+.tag { display: inline-block; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.03em; padding: 0.08rem 0.45rem; border-radius: 3px; vertical-align: middle; white-space: nowrap; }
+.tag.measured { background: var(--covered-soft); color: var(--covered); }
+.tag.research { background: var(--practice-soft); color: var(--practice); }
+.tag.mechanism { background: var(--planned-soft); color: var(--planned); }
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin: 1.2rem 0 1.6rem; }
+.two > div { background: var(--surface); border: 1px solid var(--rule); padding: 1.1rem 1.2rem; min-width: 0; }
+.two h3 { margin-top: 0; font-family: var(--display); font-size: 1.3rem; }
+.two p, .two li { max-width: none; }
+.legend { display: flex; flex-wrap: wrap; gap: 0.5rem 1.2rem; margin: 0.6rem 0 1rem; font-size: 0.9rem; color: var(--muted); }
+.dot { display: inline-block; width: 0.7em; height: 0.7em; border-radius: 2px; margin-right: 0.35em; vertical-align: -0.05em; }
+.dot.covered { background: var(--covered); } .dot.practice { background: var(--practice); } .dot.planned { background: var(--planned); } .dot.open { background: var(--open); }
+/* pipeline band */
+.pipeline { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.8rem; margin: 1rem 0 0.6rem; }
+.aspect { background: var(--surface); border: 1px solid var(--rule); padding: 0.9rem; min-width: 0; }
+.aspect h3 { margin: 0 0 0.2rem; font-family: var(--display); font-size: 1.15rem; }
+.aspect .q { color: var(--muted); font-size: 0.85rem; margin: 0 0 0.8rem; }
+.domain { border-left: 4px solid var(--rule); padding: 0.35rem 0 0.35rem 0.7rem; margin-bottom: 0.6rem; font-size: 0.9rem; line-height: 1.35; }
+.domain b { display: block; font-weight: 600; }
+.domain small { color: var(--muted); }
+.domain.covered { border-left-color: var(--covered); }
+.domain.practice { border-left-color: var(--practice); }
+.domain.planned { border-left-color: var(--planned); }
+.domain.open { border-left-color: var(--open); }
+.domain.mixed { border-left-color: var(--planned); border-image: linear-gradient(var(--covered) 0 50%, var(--open) 50% 100%) 1; }
+@media (max-width: 760px) { .pipeline { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 440px) { .pipeline { grid-template-columns: 1fr; } }
+/* tables */
+.scroll { overflow-x: auto; margin: 0.8rem 0 1.4rem; border: 1px solid var(--rule); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 700px; font-size: 0.9rem; }
+th, td { text-align: left; vertical-align: top; padding: 0.55rem 0.7rem; border-bottom: 1px solid var(--rule); }
+th { font-weight: 600; font-size: 0.76rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); background: var(--bg); }
+tbody tr:last-child td { border-bottom: none; }
+td.k { font-weight: 600; white-space: nowrap; }
+.state { font-family: var(--mono); font-size: 0.74rem; padding: 0.1rem 0.5rem; border-radius: 3px; white-space: nowrap; }
+.state.covered { background: var(--covered-soft); color: var(--covered); }
+.state.practice { background: var(--practice-soft); color: var(--practice); }
+.state.planned { background: var(--planned-soft); color: var(--planned); }
+.state.open { background: var(--open-soft); color: var(--open); }
+.contract { counter-reset: c; list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 0.8rem; margin: 1rem 0 1.4rem; }
+.contract li { counter-increment: c; background: var(--surface); border: 1px solid var(--rule); padding: 0.9rem 1rem; max-width: none; margin: 0; min-width: 0; }
+.contract li::before { content: counter(c); display: block; font-family: var(--mono); color: var(--accent); font-size: 0.8rem; margin-bottom: 0.3rem; }
+.projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.9rem; margin: 1rem 0 1.4rem; }
+.project { background: var(--surface); border: 1px solid var(--rule); padding: 1rem 1.1rem; min-width: 0; }
+.project h3 { margin: 0 0 0.3rem; font-family: var(--display); font-size: 1.2rem; }
+.project p { margin: 0.4rem 0 0; max-width: none; font-size: 0.95rem; }
+footer { margin-top: 3.5rem; padding-top: 1.2rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.88rem; }
+footer p { max-width: 80ch; }
+@media (prefers-reduced-motion: no-preference) { a { transition: color 120ms; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="eyebrow">A programme · shift-left quality for the information upstream of code</div>
+  <h1>Legible<span>.</span></h1>
+  <p class="thesis">Everything that comes before code, from requirements and processes to models, decisions and contracts, made query-able for humans and AI, and checked before it is handed to a developer or a dev-agent.</p>
+  <p class="meta">Maintained by <a href="https://github.com/fdurieux">fdurieux</a>. The page is a map: it names the artefacts, the tools and practices that already gate them, the projects started to fill the gaps, and the gaps that stay open. Where a claim is backed by a measurement it says so; where it is a mechanism we expect to work, it says that too.</p>
+</header>
+
+<h2>Why this, and why now</h2>
+<p>Code has had quality gates for twenty years: a linter runs on every change, a severity threshold fails the build, and a baseline lets an old codebase adopt the rule without a clean-up project. The information that code is built from has had none of that. Requirements sit in documents, processes in a modelling tool, architecture in slides, decisions in people's heads. Each is checked by whoever chooses to read it.</p>
+<p>Two things changed. First, code is now generated from that information by AI agents at near-zero cost, so its defects reach production faster and in volume. Second, the quality of what the agent is given turns out to decide the quality of what it produces. On one controlled instrument, code generated from sequence diagrams degrades sharply below a measurable maturity level and improves with it above that level <span class="tag measured">measured</span>. On the industry's reference benchmark, a large share of real issue descriptions had to be hand-graded as under-specified because no machine check exists for them <span class="tag research">research</span>. Repairing the input measurably raises the pass rate of the generated code <span class="tag research">research</span>.</p>
+<p>So the foundation of a semantic transformation, where an organisation's intent becomes something a person or an agent can query rather than re-read, is also a quality problem. Information that is not well-formed cannot be queried reliably, and information that has not been checked should not be handed on. This programme treats the two halves as one.</p>
+
+<div class="two">
+  <div>
+    <h3>Legible</h3>
+    <p>Query-able by humans and AI. Concretely: one identity per entity across every artefact that names it, stable identifiers that other artefacts can reference, machine-readable forms beside the human ones, and traceability that can be walked in both directions, from a requirement to the model that realises it and the test that proves it.</p>
+  </div>
+  <div>
+    <h3>Checked</h3>
+    <p>Gated before hand-off. A deterministic check runs on every change, at the author's desk first and in the pipeline second. Findings carry a severity, a threshold fails the build, a baseline lets a brownfield estate adopt the gate without a big-bang clean-up, and a graded score shows progress rather than a yes or no.</p>
+  </div>
+</div>
+
+<h2>Where it sits in the delivery pipeline</h2>
+<p>The map uses the four aspects and sixteen activities of the SAFe® Continuous Delivery Pipeline, as nomenclature only; no endorsement is implied. Each activity produces an artefact. The colour says whether that artefact is gated today, by a tool or by a practice, whether a project here is planned to gate it, or whether the gap is open. Most of Continuous Deployment carries no claim: this programme is about what happens before code, and a map coloured green all the way round would be marketing.</p>
+<div class="legend">
+  <span><span class="dot covered"></span>covered by a tool</span>
+  <span><span class="dot practice"></span>covered by a practice</span>
+  <span><span class="dot planned"></span>project planned here</span>
+  <span><span class="dot open"></span>open gap</span>
+</div>
+<div class="pipeline">
+  <section class="aspect">
+    <h3>Continuous Exploration</h3>
+    <p class="q">Where intent is formed. The programme's home.</p>
+    <div class="domain practice"><b>Hypothesize</b><small>Business hypotheses. A pre-registered experiment is the check; no linter applies.</small></div>
+    <div class="domain open"><b>Collaborate &amp; Research</b><small>Research notes, personas. No oracle for "did we understand the users".</small></div>
+    <div class="domain mixed"><b>Architect</b><small>Models, decisions, contracts. Gated for PlantUML, C4, OpenAPI; open for ArchiMate, SysML, EPC, ADRs.</small></div>
+    <div class="domain planned"><b>Synthesize</b><small>Requirements and stories. Structure is gated; wording and ambiguity are not.</small></div>
+  </section>
+  <section class="aspect">
+    <h3>Continuous Integration</h3>
+    <p class="q">Where the checks run.</p>
+    <div class="domain covered"><b>Develop</b><small>Code, tests. Linters, pre-commit hooks, editor diagnostics.</small></div>
+    <div class="domain covered"><b>Build</b><small>Pipeline gates. Exit codes, thresholds, baselines; the pattern itself.</small></div>
+    <div class="domain planned"><b>Test End-to-End</b><small>Scenarios. BDD is covered; tests generated from the design are planned.</small></div>
+    <div class="domain covered"><b>Stage</b><small>Environments. Infrastructure-as-code linters.</small></div>
+  </section>
+  <section class="aspect">
+    <h3>Continuous Deployment</h3>
+    <p class="q">Mostly no claim.</p>
+    <div class="domain"><b>Deploy</b><small>No claim.</small></div>
+    <div class="domain"><b>Verify</b><small>No claim.</small></div>
+    <div class="domain"><b>Monitor</b><small>No claim.</small></div>
+    <div class="domain practice"><b>Respond</b><small>Responders inherit models kept current upstream, if they consult them at all.</small></div>
+  </section>
+  <section class="aspect">
+    <h3>Release on Demand</h3>
+    <p class="q">Governance and learning.</p>
+    <div class="domain practice"><b>Release</b><small>Audit evidence: a gated, ratcheted model set is evidence that design documentation is current.</small></div>
+    <div class="domain practice"><b>Stabilize</b><small>Problem-solving over trustworthy models.</small></div>
+    <div class="domain planned"><b>Measure</b><small>Maturity trends exist; checking a process design against event logs is planned.</small></div>
+    <div class="domain covered"><b>Learn</b><small>Gap reports as improvement backlog.</small></div>
+  </section>
+</div>
+<p class="meta">Shift-left is a split, not a point: the artefacts are written in Continuous Exploration, the gates on them execute in Continuous Integration, at the author's desk and in the build. The per-activity reasoning, claim by claim, is in <a href="https://github.com/fdurieux/pumllint/blob/main/docs/value-in-the-sdlc.md">pumllint in the SDLC</a> and the landscape it sits in is in <a href="https://github.com/fdurieux/pumllint/blob/main/docs/sdlc-tooling-landscape.md">Where tooling pays</a>.</p>
+
+<h2>The gate contract</h2>
+<p>Every tool in this programme, and every third-party tool the map calls "covered", is measured against the same six properties. They are what separates a check that changes behaviour from a report that ages in a shared folder. Projects that lacked them are why the research tools of the last fifteen years are dormant: single author, grant lifetime, an IDE plug-in, no exit code.</p>
+<ol class="contract">
+  <li><strong>Exit codes 0, 1, 2.</strong> Clean, findings at or above the threshold, could not run. A pipeline needs nothing else to stop.</li>
+  <li><strong>A severity ladder and a threshold.</strong> Findings carry blocker, critical, major, minor or info; one flag sets where the build fails.</li>
+  <li><strong>A baseline and a ratchet.</strong> Record today's state once, fail only on regression, never update the baseline from inside the gate.</li>
+  <li><strong>A machine-readable report.</strong> JSON pinned by a published schema, and SARIF so findings appear in the code host without a plugin.</li>
+  <li><strong>Runs anywhere.</strong> No runtime dependencies, a pre-commit hook, an editor integration, and a CI action.</li>
+  <li><strong>Evidence tagging.</strong> Every claim a project makes about its value is marked measured, mechanism or hypothesis, and the measurement is published, failures included.</li>
+</ol>
+
+<h2>Artefact by artefact: tools, practices, gaps</h2>
+<p>One row per kind of upstream information. The state says how the artefact is gated today. "Threshold" and "baseline" are the contract's second and third properties; most tools outside API contracts lack them.</p>
+<div class="scroll">
+<table>
+<thead><tr><th>Artefact</th><th>State</th><th>Tool or practice</th><th>Threshold</th><th>Baseline or score</th><th>What is missing</th></tr></thead>
+<tbody>
+<tr><td class="k">PlantUML models</td><td><span class="state covered">covered</span></td><td><a href="https://github.com/fdurieux/pumllint">pumllint</a>: rules, maturity score, ratchet, traceability, editor server, CI action</td><td>yes</td><td>score and ratchet</td><td>Diagram-versus-code drift (planned).</td></tr>
+<tr><td class="k">ARIS process models (EPC)</td><td><span class="state covered">covered</span></td><td><a href="https://github.com/fdurieux/aris2puml">aris2puml</a> converts to PlantUML, defects preserved, then pumllint gates. The only CI gate found for EPC.</td><td>via pumllint</td><td>via pumllint</td><td>A gate inside ARIS itself needs its report script validated by an adopter.</td></tr>
+<tr><td class="k">Textual requirements</td><td><span class="state planned">planned</span></td><td><a href="https://strictdoc.readthedocs.io/">StrictDoc</a>, <a href="https://doorstop.readthedocs.io/">Doorstop</a>, <a href="https://sphinx-needs.readthedocs.io/">Sphinx-Needs</a>, <a href="https://github.com/itsallcode/openfasttrace">OpenFastTrace</a> gate structure and links</td><td>no, pass/fail</td><td>none</td><td>Wording rules (INCOSE, EARS) exist only in commercial tools that cannot gate CI. A deterministic wording linter is planned; ambiguity detection stays advisory.</td></tr>
+<tr><td class="k">User stories</td><td><span class="state open">open</span></td><td>None maintained</td><td></td><td></td><td>No machine check for an under-specified story exists.</td></tr>
+<tr><td class="k">Specification prose</td><td><span class="state covered">covered</span></td><td><a href="https://vale.sh/">Vale</a>, <a href="https://github.com/DavidAnson/markdownlint-cli2">markdownlint</a></td><td>yes</td><td>none</td><td>Vagueness in guards and conditions is not caught by prose linters.</td></tr>
+<tr><td class="k">Acceptance scenarios (Gherkin)</td><td><span class="state covered">covered</span></td><td><a href="https://www.npmjs.com/package/gplint">gplint</a></td><td>partial</td><td>none</td><td></td></tr>
+<tr><td class="k">BPMN process models</td><td><span class="state planned">planned</span></td><td><a href="https://github.com/bpmn-io/bpmnlint">bpmnlint</a> and the Camunda plugins</td><td>errors vs warnings only</td><td>none</td><td>Single-model only. Cross-model checks, pragmatic guidelines and a score are planned as a plugin.</td></tr>
+<tr><td class="k">Decision tables (DMN)</td><td><span class="state covered">covered</span></td><td><a href="https://github.com/bpmn-io/dmnlint">dmnlint</a>, small rule set</td><td>no</td><td>none</td><td></td></tr>
+<tr><td class="k">Cross-artefact consistency</td><td><span class="state planned">planned</span></td><td>pumllint <code>trace</code> links requirements, decisions and diagrams and fails on unknown references</td><td>yes</td><td>none</td><td>Extending the identifier graph to tests and API operations is the first new project.</td></tr>
+<tr><td class="k">Architecture decisions (ADR)</td><td><span class="state open">open</span></td><td>adr-guard and adrpy-ai, both pre-1.0</td><td>yes</td><td>none</td><td>The established ADR tools create files and validate nothing.</td></tr>
+<tr><td class="k">C4 architecture models</td><td><span class="state covered">covered</span></td><td><a href="https://docs.structurizr.com/cli">Structurizr CLI</a> validate and inspections</td><td>yes</td><td>none</td><td></td></tr>
+<tr><td class="k">ArchiMate enterprise models</td><td><span class="state open">open</span></td><td>Archi's validator gives hints in the GUI; scripting can encode rules but has no CI path</td><td>no</td><td>none</td><td>No shared rule catalogue; a dozen small 2025 and 2026 attempts, none gate-capable.</td></tr>
+<tr><td class="k">SysML v2 and Capella</td><td><span class="state open">open</span></td><td>Pilot implementation and Capella validation rules</td><td>partial</td><td>commercial only</td><td>No standalone CLI gate; the only quality-gate product is commercial.</td></tr>
+<tr><td class="k">API contracts (OpenAPI, AsyncAPI)</td><td><span class="state covered">covered</span></td><td><a href="https://github.com/stoplightio/spectral">Spectral</a>, <a href="https://quobix.com/vacuum/">vacuum</a>, <a href="https://redocly.com/docs/cli">Redocly</a></td><td>yes</td><td>vacuum has a score and minimum</td><td>The reference pattern for a neighbouring artefact.</td></tr>
+<tr><td class="k">Schemas (Protobuf, GraphQL, JSON Schema)</td><td><span class="state covered">covered</span></td><td><a href="https://buf.build/">buf</a>, graphql-eslint, sourcemeta jsonschema</td><td>yes</td><td>buf breaking gates change</td><td></td></tr>
+<tr><td class="k">Data models</td><td><span class="state covered">covered</span></td><td><a href="https://sqlfluff.com/">SQLFluff</a>, dbt-checkpoint, dbt_project_evaluator</td><td>yes</td><td>none</td><td>Conceptual and logical data models have nothing.</td></tr>
+<tr><td class="k">Threat models</td><td><span class="state open">open</span></td><td><a href="https://github.com/OWASP/pytm">pytm</a>, Threagile</td><td>script your own</td><td>none</td><td>No risk-threshold exit flag anywhere.</td></tr>
+<tr><td class="k">Process design against reality</td><td><span class="state planned">planned</span></td><td>Process-mining conformance checking, for example with <a href="https://pm4py.fit.fraunhofer.de/">PM4Py</a></td><td>script your own</td><td>none</td><td>The only method that compares a design with what actually happens. Needs an event log.</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Projects</h2>
+<p>Two exist. The others are planned, in the order their feasibility was assessed, and each stays "planned" until a repository exists. A planned project is a statement of intent, not a tool.</p>
+<div class="projects">
+  <div class="project"><h3><a href="https://github.com/fdurieux/pumllint">pumllint</a></h3><span class="state covered">shipping</span><p>A linter and maturity scorer for PlantUML diagrams. The reference implementation of the gate contract, with the measured evidence behind the programme's central claim.</p></div>
+  <div class="project"><h3><a href="https://github.com/fdurieux/aris2puml">aris2puml</a></h3><span class="state covered">shipping</span><p>Converts ARIS process exports to PlantUML activity diagrams so pumllint can gate them. Makes a process checkable; never makes it pass.</p></div>
+  <div class="project"><h3>Cross-artefact identifier gate</h3><span class="state planned">planned</span><p>One identifier graph across requirements, models, tests and API operations; fail on orphans and unknown references. Builds on pumllint's trace command.</p></div>
+  <div class="project"><h3>Requirements wording linter</h3><span class="state planned">planned</span><p>Deterministic INCOSE and EARS rules with severities and a baseline. Ambiguity detection is reported, never gated, because its precision is too low to block a build.</p></div>
+  <div class="project"><h3>EPC toolchain in the open</h3><span class="state planned">planned</span><p>An EPML reader and an EPC conventions ruleset, so process models from any tool that writes the interchange format can be gated.</p></div>
+  <div class="project"><h3>BPMN repository-wide checks</h3><span class="state planned">planned</span><p>Cross-model references, pragmatic modelling guidelines and a score, as a bpmnlint plugin.</p></div>
+</div>
+
+<h2>What a gate can and cannot tell you</h2>
+<p>A gate answers three questions with decreasing confidence. Is the artefact well-formed and precise? Fully mechanisable, and what the tools above do. Does the design satisfy a property someone stated, such as "every path reaches an end" or "payment never precedes approval"? Mechanisable for process and state models, with the property written by a person. Is the design the right one for the people it serves? Not mechanisable. Every automated check compares an artefact with another artefact; when both are wrong, agreement proves nothing. That question is answered by stakeholders in the room, by a walking skeleton, and by measuring the shipped product. AI reviewers can generate the questions for that room; the 2026 evidence on their agreement with human architects is too weak to let them close it.</p>
+
+<footer>
+  <p><strong>Evidence tags.</strong> <span class="tag measured">measured</span> a controlled experiment, published with its failures; the pumllint record is in <a href="https://github.com/fdurieux/pumllint/blob/main/EVIDENCE.md">EVIDENCE.md</a>. <span class="tag research">research</span> peer-reviewed or industry-primary work by others. <span class="tag mechanism">mechanism</span> a stated causal chain, not yet measured. The tool survey behind the table was made on 2026-10-26; tool states move, and a correction is a pull request on this page.</p>
+  <p>SAFe® and Continuous Delivery Pipeline are trademarks of Scaled Agile, Inc., used here as nomenclature only; the pipeline map is this programme's own drawing. This page is a view; the record of each project is its own roadmap, and the programme's is <a href="https://github.com/fdurieux/fdurieux.github.io/blob/main/ROADMAP.md">ROADMAP.md</a> in this site's repository.</p>
+</footer>
+</div>
+</body>
+</html>
