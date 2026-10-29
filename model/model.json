@@ -1,7 +1,7 @@
 {
   "title": "Legible: a systemic model of quality and delivery",
-  "version": "0.2",
-  "date": "2026-10-28",
+  "version": "0.3",
+  "date": "2026-10-29",
   "status": "Qualitative causal model; not calibrated or validated as a whole",
   "definition_status": {
     "software_quality": "The nine elements and meanings supplied by the user on 2026-10-28 are authoritative. Their supplied order defines Q1-Q9 in this revision.",
@@ -19,7 +19,8 @@
       "implementation and testing",
       "release decisions",
       "operational learning",
-      "capacity allocation"
+      "capacity allocation",
+      "knowledge held only by people, as a source stock; the network and succession stay outside"
     ],
     "moderators": [
       "change risk and complexity",
@@ -30,7 +31,8 @@
       "demand",
       "regulatory constraints",
       "AI use",
-      "test and observability coverage"
+      "test and observability coverage",
+      "precedence rank among derived artefacts"
     ],
     "purpose": "Improve useful and safe outcomes for users while sustaining the ability to change software; a green gate or higher deployment count is not the purpose.",
     "inventory_scope": "All 18 rows in the site's artefact-by-artefact table, using its 2026-10-26 survey as the inventory snapshot. States are site classifications, not an independent fresh audit of every tool."
@@ -101,6 +103,30 @@
       "title": "NASA: requirements management",
       "url": "https://www.nasa.gov/reference/6-2-requirements-management/",
       "scope": "Requirements dependencies, impact analysis and later change cost; engineering guidance, not a measured universal amplification factor"
+    },
+    {
+      "id": "S12",
+      "title": "pumllint: the systemic model reviewed against the recreation experiment",
+      "url": "https://github.com/fdurieux/pumllint/blob/eab25fd/recreate_experiment/legible-model-review-2026-10-28/REVIEW.md",
+      "scope": "Out-of-sample test of v0.2, artefact-to-product leg only; findings F1-F9; verdict fit for its stated purpose after specified corrections, for the cascade"
+    },
+    {
+      "id": "S13",
+      "title": "pumllint: degrading the kit, pre-registered and graded",
+      "url": "https://github.com/fdurieux/pumllint/blob/eab25fd/recreate_experiment/degradation-2026-10-28/PREREGISTRATION.md",
+      "scope": "Fifteen defects planted in a specification kit, one layer at a time; six arms; six of fifteen reached the code, all six concealed by the arm's own suite; every outcome follows the kit's declared precedence"
+    },
+    {
+      "id": "S14",
+      "title": "pumllint: knowledge transfer for a departing expert",
+      "url": "https://github.com/fdurieux/pumllint/blob/eab25fd/recreate_experiment/knowledge-transfer/DOMINIQUE-CASE.md",
+      "scope": "A plan, not a run: inventory from traces, elicitation, externalisation, a grading test with a denominator, a residual by name; the source of practices P10-P12"
+    },
+    {
+      "id": "S15",
+      "title": "pumllint: what the kit does not reach",
+      "url": "https://github.com/fdurieux/pumllint/blob/eab25fd/recreate_experiment/results/coverage/UNREALISED.md",
+      "scope": "89 % of one real program's statements exercised by the kit's suite; 141 never reached; 61 with no caller, the measured size of the tacit remainder for that program"
     }
   ],
   "evidence_legend": {
@@ -222,11 +248,12 @@
         "Q7"
       ],
       "route": "CFR/DRR may fall via fewer escaped defects; CLT may fall via less rework; FDRT only if current models aid response.",
-      "limit": "A maturity score is not product correctness. Diagram-code drift is not checked by the listed gate. Author-less semantic invention can harm.",
-      "evidence": "M for a bounded sequence-to-code experiment; H for production effects",
+      "limit": "A maturity score is not product correctness. Diagram-code drift is not checked by the listed gate. Author-less semantic invention can harm. Drift under a green gate is measured: one maintained set at Level 5, 100/100, with 25 claims the code contradicts (S12 F4).",
+      "evidence": "M for a bounded sequence-to-code experiment; H for production effects; M-bounded for drift under a green gate",
       "source": [
         "S1",
-        "S3"
+        "S3",
+        "S12"
       ]
     },
     {
@@ -346,10 +373,11 @@
         "Q7"
       ],
       "route": "Fewer decision errors may reduce CFR/DRR, if those defects otherwise reach production.",
-      "limit": "Do not infer complete overlap, gap, legal or business-rule verification from a lint pass; use independent boundary examples.",
+      "limit": "Do not infer complete overlap, gap, legal or business-rule verification from a lint pass; use independent boundary examples. Measured: 13 tables with 0 gaps, 0 overlaps and 1 untyped output, which was the defect; output typing caught what gap analysis passed (S12 F6).",
       "evidence": "I + H",
       "source": [
-        "S1"
+        "S1",
+        "S12"
       ]
     },
     {
@@ -366,11 +394,13 @@
         "Q9"
       ],
       "route": "Less omitted change scope may improve CLT/CFR/DRR; trace-informed diagnosis may improve FDRT.",
-      "limit": "A valid link is not semantic agreement or test adequacy. The full graph and diagram-code drift detection are not shipped by this inventory.",
+      "limit": "A valid link is not semantic agreement or test adequacy. The full graph and diagram-code drift detection are not shipped by this inventory. Measured: trace reported 158/158 verified while 33 specified statements were never executed; clause-level coverage is the gap. Deleting a requirement's only scenario trips the trace gate; deleting the rule from a requirement that keeps a scenario does not (S12 F6, S13).",
       "evidence": "I + H",
       "source": [
         "S1",
-        "S2"
+        "S2",
+        "S12",
+        "S13"
       ]
     },
     {
@@ -531,6 +561,41 @@
       "source": [
         "S1"
       ]
+    },
+    {
+      "id": "A19",
+      "artefact": "Vocabulary (glossary)",
+      "state": "open",
+      "tools": "No gate in the inventory; the experiment's glossary check (terms used repeatedly and defined nowhere) is a candidate",
+      "mechanism": "A defined term is one identity across artefacts; an undefined recurring term is a decision nobody wrote.",
+      "quality": [
+        "Q1",
+        "Q6"
+      ],
+      "route": "Fewer silent disagreements between artefacts may reduce rework and omitted change scope: CLT and CFR, indirect.",
+      "limit": "Measured once: 42 of 60 recurring kit terms had no definition before wave 2 (S12 F8). A definition is not agreement on meaning.",
+      "evidence": "I + H; M-bounded for the gap",
+      "source": [
+        "S12"
+      ]
+    },
+    {
+      "id": "A20",
+      "artefact": "Property-based invariants",
+      "state": "covered",
+      "tools": "Covered by a practice: hypothesis-style property tests on the specified invariants, run against the original and each rebuild",
+      "mechanism": "Properties exercise behaviour no example scenario reaches, independently of the examples the kit states.",
+      "quality": [
+        "Q1",
+        "Q2",
+        "Q7"
+      ],
+      "route": "Detection of behaviour the scenario suite misses: CFR and DRR, indirect.",
+      "limit": "Measured once: six intrinsic properties at 100 examples each and one differential property, 7/7, on one program (S12). A property holds for the cases generated, not for all.",
+      "evidence": "M-bounded on one program; H elsewhere",
+      "source": [
+        "S12"
+      ]
     }
   ],
   "actors": [
@@ -623,6 +688,30 @@
       "Review incidents and observed deviations",
       "Closes the loop from actual outcomes to upstream intent",
       "Proposed implementation practice; distinguish useful exceptions from defects and update artefacts deliberately; H."
+    ],
+    [
+      "P9",
+      "Calibrate the oracle by mutation",
+      "Tests the tests before any rebuild, so detection is independent rather than shared-premise",
+      "Planted mutants must fail the suite; m1 failed 2 scenarios and m2 failed 11 before any recreation ran (M-bounded, S12 F7)."
+    ],
+    [
+      "P10",
+      "Elicit what only people know",
+      "Fills upstream omissions at their source and shrinks the assumption stock",
+      "Inventory from traces before any session; worked cases, counterexamples, exception walks, incident replay, quirk and orphan adjudication, with the successor present (H, S14)."
+    ],
+    [
+      "P11",
+      "Externalise into the normative home, with a check",
+      "Turns an elicited item into shared, current knowledge that drift can be measured against",
+      "Rules to decision tables, terms to the glossary, flows to models, reasons to decision records, procedures to runbooks; the register links provenance and is never a second source of truth (H, S14)."
+    ],
+    [
+      "P12",
+      "Validate every extracted claim with its owner",
+      "The independent channel that breaks the reverse path from code into derived artefacts (E73)",
+      "Observed, inferred and intended kept apart; a defect preserved for compatibility is a recorded decision with scope and an example; feeds E57 (H as a practice; the channel is M-bounded, S12 F2)."
     ]
   ],
   "nodes": [
@@ -648,7 +737,7 @@
       "id": "fidelity",
       "label": "Implementation correctness",
       "kind": "variable",
-      "definition": "Verified agreement with valid intended behaviour"
+      "definition": "Verified agreement with valid intended behaviour; state whether it is measured against validated intent or against a reference implementation, which can disagree"
     },
     {
       "id": "escape",
@@ -844,9 +933,9 @@
     },
     {
       "id": "deriveddef",
-      "label": "Defects in derived artefacts",
+      "label": "Defects in behaviour-carrying derived artefacts",
       "kind": "variable",
-      "definition": "Wrong assumptions embodied in models, contracts, data definitions or decisions"
+      "definition": "Wrong assumptions embodied in contracts, decision tables, data definitions and executable examples: the artefacts a builder takes behaviour from"
     },
     {
       "id": "codedef",
@@ -901,6 +990,36 @@
       "label": "Adverse outcomes in use",
       "kind": "outcome",
       "definition": "Observed errors, disruption, loss or other user/operational consequences"
+    },
+    {
+      "id": "tacit",
+      "label": "Knowledge held only by people",
+      "kind": "stock",
+      "definition": "Intent, rules, exceptions and history that no artefact in the inventory states; held by people, in the strong sense (cannot be fully told) or the weak sense (sayable, unwritten). The network and succession are outside the model."
+    },
+    {
+      "id": "depchange",
+      "label": "Platform and dependency change",
+      "kind": "variable",
+      "definition": "A change in a platform, library or runtime that alters behaviour the code assumed, downstream of any intent"
+    },
+    {
+      "id": "explderived",
+      "label": "Defects in explanatory artefacts",
+      "kind": "variable",
+      "definition": "Wrong assumptions embodied in models and prose that explain structure or intent without carrying executable behaviour"
+    },
+    {
+      "id": "diverse",
+      "label": "Diverse independent derivation",
+      "kind": "variable",
+      "definition": "Independent re-derivations of the same artefact from the same inputs, whose divergences are triaged rather than scored away"
+    },
+    {
+      "id": "completeness",
+      "label": "Completeness against an inventory",
+      "kind": "variable",
+      "definition": "Coverage of a requirement inventory by a derived artefact, measured separately from the precision of what it states"
     }
   ],
   "edges": [
@@ -940,7 +1059,7 @@
         "S3",
         "S5"
       ],
-      "condition": "Knowledge is correct, current and actually consumed; the measured result covers sequence-codegen only"
+      "condition": "Knowledge is correct, current and actually consumed; the measured result covers sequence-codegen only; the measured result covers sequence-codegen where the model was the consumer's only behavioural input"
     },
     {
       "id": "E04",
@@ -1272,7 +1391,7 @@
       "sources": [
         "S3"
       ],
-      "condition": "Other relevant factors held comparable"
+      "condition": "Sign holds against valid intent, not against a reference implementation: an invented clean refusal was better than the original's crash (M, one instance, S12 F5). The measured default when intent is missing is to record an assumption, not to invent (S13 D5)"
     },
     {
       "id": "E33",
@@ -1483,9 +1602,12 @@
       "mechanism": "Wrong represented intent can be implemented faithfully.",
       "evidence": "M-bounded / H-transfer",
       "sources": [
-        "S3"
+        "S3",
+        "S12",
+        "S13"
       ],
-      "condition": "Bounded sequence-codegen evidence; other artefacts, human workflows and product dimensions require validation"
+      "condition": "Bounded evidence: sequence-codegen (S3) and a 3 500-line data program rebuilt cell for cell from a code-derived kit (S12); the artefact is consumed through its precedence rank",
+      "moderator": "Precedence rank of the layer that states the behaviour: the code takes each behaviour from the highest-ranked layer that states it (M, bounded: all fifteen degradation outcomes follow the kit's declared precedence, S13)"
     },
     {
       "id": "E52",
@@ -1560,9 +1682,11 @@
       "polarity": "-",
       "delay": "same change",
       "mechanism": "Validated correction removes defects from the relevant upstream scope.",
-      "evidence": "H",
-      "sources": [],
-      "condition": "Other relevant factors held comparable"
+      "evidence": "M-bounded",
+      "sources": [
+        "S12"
+      ],
+      "condition": "One code-only revision of the kit took spec defects from 2 to 0 and non-identical artefacts from 22 to 11, all 11 by construction (S12 F7)"
     },
     {
       "id": "E59",
@@ -1701,6 +1825,125 @@
       "evidence": "H",
       "sources": [],
       "condition": "The independent evidence is valid and the test oracle is actually updated"
+    },
+    {
+      "id": "E71",
+      "source": "tacit",
+      "target": "updef",
+      "polarity": "+",
+      "delay": "at authoring",
+      "mechanism": "What only a person knows is omitted from the written intent: the author did not know, or knew and did not write.",
+      "evidence": "H",
+      "sources": [
+        "S14"
+      ],
+      "condition": "The person is not in the authoring loop, or the item is tacit in the strong sense"
+    },
+    {
+      "id": "E72",
+      "source": "tacit",
+      "target": "unknown",
+      "polarity": "+",
+      "delay": "at derivation",
+      "mechanism": "What was never written arrives at the builder as an assumption; a kit stands in for a person it cannot ask.",
+      "evidence": "H",
+      "sources": [
+        "S14",
+        "S15"
+      ],
+      "condition": "Assumption-register entries per artefact set are the measured shadow of this stock: 65, 50 and 30 from a code-derived kit, 117 and 94 from a generated wiki (S12 F5)"
+    },
+    {
+      "id": "E73",
+      "source": "codedef",
+      "target": "deriveddef",
+      "polarity": "+",
+      "delay": "during derivation",
+      "mechanism": "Derivation treats implemented behaviour, defects included, as intent.",
+      "evidence": "M-bounded",
+      "sources": [
+        "S12"
+      ],
+      "condition": "The derived artefact is calibrated to the implementation, not to independent intent: the timestamp unit and the export crash both reached code-derived artefacts (S12 F1)"
+    },
+    {
+      "id": "E74",
+      "source": "depchange",
+      "target": "codedef",
+      "polarity": "+",
+      "delay": "on upgrade",
+      "mechanism": "A changed platform or dependency alters behaviour the code assumed.",
+      "evidence": "M-bounded",
+      "sources": [
+        "S12"
+      ],
+      "condition": "No test pins the assumed behaviour: pandas 3.0.5 turned a millisecond stamp into seconds (S12 F1)"
+    },
+    {
+      "id": "E75",
+      "source": "updef",
+      "target": "explderived",
+      "polarity": "+",
+      "delay": "during derivation",
+      "mechanism": "Unresolved intent is copied into models and prose as readily as into contracts.",
+      "evidence": "H",
+      "sources": [
+        "S11"
+      ],
+      "condition": "The disputed intent is consumed and not corrected"
+    },
+    {
+      "id": "E76",
+      "source": "explderived",
+      "target": "codedef",
+      "polarity": "+",
+      "delay": "implementation",
+      "mechanism": "An explanatory artefact carries behaviour only when it is the builder's sole behavioural input; otherwise its defects are attenuated by the behaviour-carrying layer.",
+      "evidence": "M-bounded",
+      "sources": [
+        "S12",
+        "S13"
+      ],
+      "condition": "Attenuation measured: 12 diagram defects reached no rebuild, and defects planted only in diagrams reached nothing, because a higher-ranked layer stated the behaviour (S12 F3, S13 D1)"
+    },
+    {
+      "id": "E77",
+      "source": "drift",
+      "target": "confidence",
+      "polarity": "+",
+      "delay": "immediate",
+      "mechanism": "A passing structural gate over a drifted artefact reads as assurance.",
+      "evidence": "M-bounded",
+      "sources": [
+        "S12"
+      ],
+      "condition": "The gate scores the set against itself, never against the code: a Level 5, 100/100 set carried 25 claims the code contradicts (S12 F4)"
+    },
+    {
+      "id": "E78",
+      "source": "diverse",
+      "target": "detection",
+      "polarity": "+",
+      "delay": "verification",
+      "mechanism": "Independent derivations disagree where a shared premise is wrong; the disagreement is the detection.",
+      "evidence": "M-bounded",
+      "sources": [
+        "S12"
+      ],
+      "condition": "Divergences are triaged, not scored away: two rebuilders refused cleanly where the original crashes, and both recorded it (S12 F2)"
+    },
+    {
+      "id": "E79",
+      "source": "completeness",
+      "target": "detection",
+      "polarity": "+",
+      "delay": "verification",
+      "mechanism": "Coverage of an inventory finds the omissions that precision cannot see.",
+      "evidence": "M-bounded",
+      "sources": [
+        "S12"
+      ],
+      "condition": "Accurate but incomplete is the measured shape: claim precision 0.992 against strict coverage 0.245 (S12 F5)"
     }
   ],
   "loops": [
@@ -1800,7 +2043,7 @@
       ],
       "reading": "Score-oriented semantic invention can produce apparent success, reduce independent challenge and perpetuate unresolved intent.",
       "leverage": "Escalate missing intent to its owner; require independent outcome examples, not just a higher score.",
-      "evidence": "M for E27 and bounded repair failure; H for the organizational feedback loop"
+      "evidence": "M for E27 and bounded repair; M-bounded for drift feeding confidence (E77); H for the organizational loop"
     },
     {
       "id": "B1",
@@ -1844,7 +2087,7 @@
       ],
       "reading": "Observation exposes mismatch, and owned learning reduces it by changing the model or the implementation.",
       "leverage": "Maintain useful runtime evidence and independent review; conformance is not automatically the right objective.",
-      "evidence": "H"
+      "evidence": "H; one instance M-bounded: a model set read against its code, adjudicated, spot-checked by execution (S12 F4)"
     },
     {
       "id": "R5",
@@ -1923,6 +2166,20 @@
       "Changes in a consistently defined workflow",
       "admitted changes add; completed or abandoned changes remove",
       "A larger W stock can increase waiting even if coding is faster."
+    ],
+    [
+      "N",
+      "Unresolved or invented decisions",
+      "Assumption-register entries per artefact set",
+      "unstated intent adds; validation and externalisation remove",
+      "Measured on five rebuilds: 65, 50, 30 from a code-derived kit; 117, 94 from a generated wiki. A count of assumptions, not of defects."
+    ],
+    [
+      "P",
+      "Knowledge held only by people",
+      "Items in a capture inventory: found, validated, externalised with a check, residual by name",
+      "elicitation and externalisation remove; departures and unrecorded decisions add",
+      "No percentage of knowledge captured: the population has no denominator. Its downstream shadow is N."
     ]
   ],
   "hypotheses": [
@@ -1945,14 +2202,14 @@
       "Traceability reduces omitted change impact",
       "For changes with known dependent consumers, compare identified impacts with independently reviewed actual impacts.",
       "Fewer missed consumers and shorter diagnosis after the trace is used.",
-      "If links exist but are stale or unused, graph coverage is not a leading indicator of the claimed benefit."
+      "If links exist but are stale or unused, graph coverage is not a leading indicator of the claimed benefit. Measured once: trace reported 158/158 requirements verified while 33 specified statements were never executed (S12 F6)."
     ],
     [
       "H4",
       "Intent validation prevents 'green but wrong' repairs",
       "Flag guessed or unresolved decisions; require domain-owner resolution and independent outcome examples.",
       "Incorrect repairs decline even if gate scores change little.",
-      "If no independent oracle exists, do not infer correctness from matching specifications and tests."
+      "If no independent oracle exists, do not infer correctness from matching specifications and tests. Measured once: a kit derived from code wrote the original's crash into the spec as a requirement, the rebuild reproduced it, and the suite scored it as correct (S12 F2)."
     ]
   ],
   "assumptions": [
@@ -2023,6 +2280,14 @@
       [
         "Exposure",
         "Use turns latent faults into consequences for users, operations and the business."
+      ],
+      [
+        "Reverse derivation",
+        "Implemented behaviour, defects included, is read back into artefacts derived from the code; an oracle calibrated on the same code passes the inheritance as correct."
+      ],
+      [
+        "Precedence",
+        "What propagates is decided by the highest-ranked layer that states the behaviour; a defect in a lower layer loses to a correct higher one, and a wrong value in the highest wins."
       ]
     ],
     "limits": [
@@ -2030,18 +2295,32 @@
       "A defect need not become semantically more wrong at every stage. Its spread, exposure, correction scope or consequences can grow while the root error remains the same.",
       "Some downstream faults are introduced independently and cannot be attributed to upstream artefacts.",
       "No universal late-fix cost multiplier or monotonic quality decline is asserted.",
-      "The full cascade and its DORA effects are hypotheses, not a measured production outcome of the tool inventory."
+      "The full cascade and its DORA effects are hypotheses, not a measured production outcome of the tool inventory.",
+      "Attenuation holds only while a higher-ranked layer still states the behaviour correctly; a defect planted consistently in every layer propagates and is concealed by the derived suite."
     ],
     "measurements": [
       "Root defect ID, originating artefact/version and independent basis for calling it wrong.",
       "Downstream items actually affected, confirmed by impact analysis rather than link count alone.",
       "Where inherited errors were detected, corrected, contained or escaped; detection delay.",
       "Shared assumptions between code, tests and reviews; independently verified missed cases.",
-      "Correction scope, rework effort, exposure and observed user/operational impact, separately from root-defect count."
+      "Correction scope, rework effort, exposure and observed user/operational impact, separately from root-defect count.",
+      "Assumption-register entries per artefact set, as the count of what the inputs did not state.",
+      "Per planted or found defect: propagated, attenuated, or recorded as an assumption; and which gate, if any, saw it."
     ]
   },
   "revision_notes": [
     "v0.2 makes cross-layer propagation, branching into tests, amplification mechanisms and containment explicit in the visualization.",
-    "The nine quality elements now follow the user-supplied definition; Q-code meanings differ from v0.1, and inventory mappings were reconciled."
-  ]
+    "The nine quality elements now follow the user-supplied definition; Q-code meanings differ from v0.1, and inventory mappings were reconciled.",
+    "v0.3 applies the out-of-sample review (S12, F1-F7) and the degradation test (S13, D1-D2): a reverse edge from code into derived artefacts, a dependency-change source, derived artefacts split by role with precedence as the moderator, drift feeding confidence, an indicator for the unknown stock, diverse derivation and completeness as detection inputs, oracle calibration as a practice; and one extension, a source stock for knowledge held only by people with two edges and three practices, all H until the departing-expert pilot runs. Two inventory rows added (A19, A20). No magnitudes; no edge from capture to delivery metrics."
+  ],
+  "evidence_pin": {
+    "pumllint": "eab25fd",
+    "site": "bb78dff",
+    "review": "pumllint #205 (fd4a1f0)",
+    "degradation": "pumllint #208 (eab25fd)",
+    "previous": {
+      "pumllint": "9d728c8",
+      "site": "9ba9b09"
+    }
+  }
 }
