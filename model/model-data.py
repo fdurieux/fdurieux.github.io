@@ -335,3 +335,95 @@ MODEL['cascade']={
  ]
 }
 MODEL['revision_notes']=['v0.2 makes cross-layer propagation, branching into tests, amplification mechanisms and containment explicit in the visualization.','The nine quality elements now follow the user-supplied definition; Q-code meanings differ from v0.1, and inventory mappings were reconciled.']
+
+# v0.3 (2026-10-29): the out-of-sample review (pumllint #205), the pre-registered degradation test
+# (pumllint #208), and one source node for knowledge held only by people. Every new element carries
+# its evidence label; the people-side edges are H until the departing-expert pilot runs.
+MODEL['version']='0.3'
+MODEL['date']='2026-10-29'
+MODEL['evidence_pin']={'pumllint':'eab25fd','site':'bb78dff','review':'pumllint #205 (fd4a1f0)','degradation':'pumllint #208 (eab25fd)','previous':{'pumllint':'9d728c8','site':'9ba9b09'}}
+MODEL['sources']+=[
+ {'id':'S12','title':'pumllint: the systemic model reviewed against the recreation experiment','url':'https://github.com/fdurieux/pumllint/blob/eab25fd/recreate_experiment/legible-model-review-2026-10-28/REVIEW.md','scope':'Out-of-sample test of v0.2, artefact-to-product leg only; findings F1-F9; verdict fit for its stated purpose after specified corrections, for the cascade'},
+ {'id':'S13','title':'pumllint: degrading the kit, pre-registered and graded','url':'https://github.com/fdurieux/pumllint/blob/eab25fd/recreate_experiment/degradation-2026-10-28/PREREGISTRATION.md','scope':'Fifteen defects planted in a specification kit, one layer at a time; six arms; six of fifteen reached the code, all six concealed by the arm\'s own suite; every outcome follows the kit\'s declared precedence'},
+ {'id':'S14','title':'pumllint: knowledge transfer for a departing expert','url':'https://github.com/fdurieux/pumllint/blob/eab25fd/recreate_experiment/knowledge-transfer/DOMINIQUE-CASE.md','scope':'A plan, not a run: inventory from traces, elicitation, externalisation, a grading test with a denominator, a residual by name; the source of practices P10-P12'},
+ {'id':'S15','title':'pumllint: what the kit does not reach','url':'https://github.com/fdurieux/pumllint/blob/eab25fd/recreate_experiment/results/coverage/UNREALISED.md','scope':'89 % of one real program\'s statements exercised by the kit\'s suite; 141 never reached; 61 with no caller, the measured size of the tacit remainder for that program'}
+]
+
+# Nodes: one source stock outside the artefact boundary, one exogenous source, one role split, two detection inputs.
+for n,l,k,d in [
+ ('tacit','Knowledge held only by people','stock','Intent, rules, exceptions and history that no artefact in the inventory states; held by people, in the strong sense (cannot be fully told) or the weak sense (sayable, unwritten). The network and succession are outside the model.'),
+ ('depchange','Platform and dependency change','variable','A change in a platform, library or runtime that alters behaviour the code assumed, downstream of any intent'),
+ ('explderived','Defects in explanatory artefacts','variable','Wrong assumptions embodied in models and prose that explain structure or intent without carrying executable behaviour'),
+ ('diverse','Diverse independent derivation','variable','Independent re-derivations of the same artefact from the same inputs, whose divergences are triaged rather than scored away'),
+ ('completeness','Completeness against an inventory','variable','Coverage of a requirement inventory by a derived artefact, measured separately from the precision of what it states')
+]:MODEL['nodes'].append(dict(id=n,label=l,kind=k,definition=d))
+for n in MODEL['nodes']:
+ if n['id']=='deriveddef':
+  n.update(label='Defects in behaviour-carrying derived artefacts',definition='Wrong assumptions embodied in contracts, decision tables, data definitions and executable examples: the artefacts a builder takes behaviour from')
+ if n['id']=='fidelity':
+  n['definition']+='; state whether it is measured against validated intent or against a reference implementation, which can disagree'
+
+# Edges amended on evidence (review F1-F7, degradation D1-D2).
+_E={e['id']:e for e in MODEL['edges']}
+_E['E03']['condition']+='; the measured result covers sequence-codegen where the model was the consumer\'s only behavioural input'
+_E['E32']['condition']='Sign holds against valid intent, not against a reference implementation: an invented clean refusal was better than the original\'s crash (M, one instance, S12 F5). The measured default when intent is missing is to record an assumption, not to invent (S13 D5)'
+_E['E51'].update(moderator='Precedence rank of the layer that states the behaviour: the code takes each behaviour from the highest-ranked layer that states it (M, bounded: all fifteen degradation outcomes follow the kit\'s declared precedence, S13)',condition='Bounded evidence: sequence-codegen (S3) and a 3 500-line data program rebuilt cell for cell from a code-derived kit (S12); the artefact is consumed through its precedence rank')
+_E['E51']['sources']=['S3','S12','S13']
+_E['E58'].update(evidence='M-bounded',sources=['S12'],condition='One code-only revision of the kit took spec defects from 2 to 0 and non-identical artefacts from 22 to 11, all 11 by construction (S12 F7)')
+del _E
+
+# New edges E71-E79.
+edge('tacit','updef','+','at authoring','What only a person knows is omitted from the written intent: the author did not know, or knew and did not write.','H',['S14'],'The person is not in the authoring loop, or the item is tacit in the strong sense')
+edge('tacit','unknown','+','at derivation','What was never written arrives at the builder as an assumption; a kit stands in for a person it cannot ask.','H',['S14','S15'],'Assumption-register entries per artefact set are the measured shadow of this stock: 65, 50 and 30 from a code-derived kit, 117 and 94 from a generated wiki (S12 F5)')
+edge('codedef','deriveddef','+','during derivation','Derivation treats implemented behaviour, defects included, as intent.','M-bounded',['S12'],'The derived artefact is calibrated to the implementation, not to independent intent: the timestamp unit and the export crash both reached code-derived artefacts (S12 F1)')
+edge('depchange','codedef','+','on upgrade','A changed platform or dependency alters behaviour the code assumed.','M-bounded',['S12'],'No test pins the assumed behaviour: pandas 3.0.5 turned a millisecond stamp into seconds (S12 F1)')
+edge('updef','explderived','+','during derivation','Unresolved intent is copied into models and prose as readily as into contracts.','H',['S11'],'The disputed intent is consumed and not corrected')
+edge('explderived','codedef','+','implementation','An explanatory artefact carries behaviour only when it is the builder\'s sole behavioural input; otherwise its defects are attenuated by the behaviour-carrying layer.','M-bounded',['S12','S13'],'Attenuation measured: 12 diagram defects reached no rebuild, and defects planted only in diagrams reached nothing, because a higher-ranked layer stated the behaviour (S12 F3, S13 D1)')
+edge('drift','confidence','+','immediate','A passing structural gate over a drifted artefact reads as assurance.','M-bounded',['S12'],'The gate scores the set against itself, never against the code: a Level 5, 100/100 set carried 25 claims the code contradicts (S12 F4)')
+edge('diverse','detection','+','verification','Independent derivations disagree where a shared premise is wrong; the disagreement is the detection.','M-bounded',['S12'],'Divergences are triaged, not scored away: two rebuilders refused cleanly where the original crashes, and both recorded it (S12 F2)')
+edge('completeness','detection','+','verification','Coverage of an inventory finds the omissions that precision cannot see.','M-bounded',['S12'],'Accurate but incomplete is the measured shape: claim precision 0.992 against strict coverage 0.245 (S12 F5)')
+
+# Loops, hypotheses, stocks, practices, boundary, inventory, cascade.
+for L in MODEL['loops']:
+ if L['id']=='B2':L['evidence']='H; one instance M-bounded: a model set read against its code, adjudicated, spot-checked by execution (S12 F4)'
+ if L['id']=='R4':L['evidence']='M for E27 and bounded repair; M-bounded for drift feeding confidence (E77); H for the organizational loop'
+for h in MODEL['hypotheses']:
+ if h[0]=='H3':h[4]+=' Measured once: trace reported 158/158 requirements verified while 33 specified statements were never executed (S12 F6).'
+ if h[0]=='H4':h[4]+=' Measured once: a kit derived from code wrote the original\'s crash into the spec as a requirement, the rebuild reproduced it, and the suite scored it as correct (S12 F2).'
+MODEL['stocks']+=[
+ ['N','Unresolved or invented decisions','Assumption-register entries per artefact set','unstated intent adds; validation and externalisation remove','Measured on five rebuilds: 65, 50, 30 from a code-derived kit; 117, 94 from a generated wiki. A count of assumptions, not of defects.'],
+ ['P','Knowledge held only by people','Items in a capture inventory: found, validated, externalised with a check, residual by name','elicitation and externalisation remove; departures and unrecorded decisions add','No percentage of knowledge captured: the population has no denominator. Its downstream shadow is N.']
+]
+MODEL['practices']+=[
+ ['P9','Calibrate the oracle by mutation','Tests the tests before any rebuild, so detection is independent rather than shared-premise','Planted mutants must fail the suite; m1 failed 2 scenarios and m2 failed 11 before any recreation ran (M-bounded, S12 F7).'],
+ ['P10','Elicit what only people know','Fills upstream omissions at their source and shrinks the assumption stock','Inventory from traces before any session; worked cases, counterexamples, exception walks, incident replay, quirk and orphan adjudication, with the successor present (H, S14).'],
+ ['P11','Externalise into the normative home, with a check','Turns an elicited item into shared, current knowledge that drift can be measured against','Rules to decision tables, terms to the glossary, flows to models, reasons to decision records, procedures to runbooks; the register links provenance and is never a second source of truth (H, S14).'],
+ ['P12','Validate every extracted claim with its owner','The independent channel that breaks the reverse path from code into derived artefacts (E73)','Observed, inferred and intended kept apart; a defect preserved for compatibility is a recorded decision with scope and an example; feeds E57 (H as a practice; the channel is M-bounded, S12 F2).']
+]
+MODEL['boundary']['inside'].append('knowledge held only by people, as a source stock; the network and succession stay outside')
+MODEL['boundary']['moderators'].append('precedence rank among derived artefacts')
+for a in MODEL['inventory']:
+ if a['id']=='A01':
+  a['limit']+=' Drift under a green gate is measured: one maintained set at Level 5, 100/100, with 25 claims the code contradicts (S12 F4).'
+  a['evidence']+='; M-bounded for drift under a green gate'
+  a['source']+=['S12']
+ if a['id']=='A08':
+  a['limit']+=' Measured: 13 tables with 0 gaps, 0 overlaps and 1 untyped output, which was the defect; output typing caught what gap analysis passed (S12 F6).'
+  a['source']+=['S12']
+ if a['id']=='A09':
+  a['limit']+=' Measured: trace reported 158/158 verified while 33 specified statements were never executed; clause-level coverage is the gap. Deleting a requirement\'s only scenario trips the trace gate; deleting the rule from a requirement that keeps a scenario does not (S12 F6, S13).'
+  a['source']+=['S12','S13']
+MODEL['inventory']+=[
+ {'id':'A19','artefact':'Vocabulary (glossary)','state':'open','tools':'No gate in the inventory; the experiment\'s glossary check (terms used repeatedly and defined nowhere) is a candidate','mechanism':'A defined term is one identity across artefacts; an undefined recurring term is a decision nobody wrote.','quality':['Q1','Q6'],'route':'Fewer silent disagreements between artefacts may reduce rework and omitted change scope: CLT and CFR, indirect.','limit':'Measured once: 42 of 60 recurring kit terms had no definition before wave 2 (S12 F8). A definition is not agreement on meaning.','evidence':'I + H; M-bounded for the gap','source':['S12']},
+ {'id':'A20','artefact':'Property-based invariants','state':'covered','tools':'Covered by a practice: hypothesis-style property tests on the specified invariants, run against the original and each rebuild','mechanism':'Properties exercise behaviour no example scenario reaches, independently of the examples the kit states.','quality':['Q1','Q2','Q7'],'route':'Detection of behaviour the scenario suite misses: CFR and DRR, indirect.','limit':'Measured once: six intrinsic properties at 100 examples each and one differential property, 7/7, on one program (S12). A property holds for the cases generated, not for all.','evidence':'M-bounded on one program; H elsewhere','source':['S12']}
+]
+MODEL['cascade']['mechanisms']+=[
+ ['Reverse derivation','Implemented behaviour, defects included, is read back into artefacts derived from the code; an oracle calibrated on the same code passes the inheritance as correct.'],
+ ['Precedence','What propagates is decided by the highest-ranked layer that states the behaviour; a defect in a lower layer loses to a correct higher one, and a wrong value in the highest wins.']
+]
+MODEL['cascade']['limits'].append('Attenuation holds only while a higher-ranked layer still states the behaviour correctly; a defect planted consistently in every layer propagates and is concealed by the derived suite.')
+MODEL['cascade']['measurements']+=[
+ 'Assumption-register entries per artefact set, as the count of what the inputs did not state.',
+ 'Per planted or found defect: propagated, attenuated, or recorded as an assumption; and which gate, if any, saw it.'
+]
+MODEL['revision_notes'].append('v0.3 applies the out-of-sample review (S12, F1-F7) and the degradation test (S13, D1-D2): a reverse edge from code into derived artefacts, a dependency-change source, derived artefacts split by role with precedence as the moderator, drift feeding confidence, an indicator for the unknown stock, diverse derivation and completeness as detection inputs, oracle calibration as a practice; and one extension, a source stock for knowledge held only by people with two edges and three practices, all H until the departing-expert pilot runs. Two inventory rows added (A19, A20). No magnitudes; no edge from capture to delivery metrics.')

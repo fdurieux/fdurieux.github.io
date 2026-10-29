@@ -56,3 +56,15 @@ pumllint is the reference implementation.
   in this repository. The reviewed PDF stays in the bundle. `model/CHANGELOG.md`
   is the model's record from here on; `model/v0.3-change-note.md` is the
   next revision, drafted and not applied.
+- *2026-10-29* — Systemic impact model v0.3: the seven corrections of the
+  out-of-sample review (pumllint #205) and the two refinements of the
+  degradation test (pumllint #208) applied; one source node added for
+  knowledge held only by people, with two edges, four practices (one
+  measured, three from the departing-expert plan) and a measured indicator,
+  all labelled; two inventory rows added (vocabulary, open; property-based
+  invariants, covered by a practice); the page's drift cell aligned to this
+  record (open) and its sequence-diagram claim given its condition. 51
+  nodes, 79 edges, 8 loops, 20 rows. Evidence pin pumllint `eab25fd`. The
+  JSON, the PDF, the cascade figure and a reduced knowledge view are
+  generated from the data file. First consumer: the knowledge-preservation
+  deck's cascade slide.

@@ -14,7 +14,7 @@
     "id": "C02",
     "claim": "Diagram quality relates to generated-code behaviour in bounded sequence-diagram experiments.",
     "status": "M, bounded",
-    "locations": "JSON E03 and E51; PDF pp. 3, 16",
+    "locations": "JSON E03 and E51; PDF pp. 3, 16; v0.3: E51 moderator (precedence), E76 (explanatory artefacts)",
     "sources": [
       "S3"
     ],
@@ -43,23 +43,26 @@
   {
     "id": "C05",
     "claim": "Upstream errors can enter dependent artefacts, implementation and tests.",
-    "status": "H overall; bounded M for model-to-code leg",
+    "status": "H overall; bounded M for the model-to-code leg and, since v0.3, for the reverse leg code-to-artefacts (E73, E74)",
     "locations": "PDF p. 3; JSON E50–E55, E69–E70",
     "sources": [
       "S1",
       "S3",
-      "S11"
+      "S11",
+      "S12"
     ],
     "review_question": "Demand an explicit inheritance mechanism, dependency conditions, independent downstream fault sources and observation strategy."
   },
   {
     "id": "C06",
     "claim": "Shared wrong premises can make tests and code agree, concealing errors.",
-    "status": "H",
-    "locations": "PDF p. 3; JSON E52–E54, E69–E70",
+    "status": "M, bounded (one instance; premise originating in code), per pumllint #205 F2; H for the organisation-wide pathway",
+    "locations": "PDF p. 3; JSON E52–E54, E69–E70; v0.3: E73, E78 (diverse derivation as a detection input)",
     "sources": [
       "S3",
-      "S10"
+      "S10",
+      "S12",
+      "S13"
     ],
     "review_question": "Check that the full common-mode pathway is labelled as a mechanism, not directly measured by the cited repair experiment."
   },
@@ -77,7 +80,7 @@
     "id": "C08",
     "claim": "Independent validation and outcome-led correction can interrupt the cascade.",
     "status": "H; bounded related repair evidence",
-    "locations": "PDF pp. 3, 10–11; JSON E56–E58, E66–E67, E70; B3",
+    "locations": "PDF pp. 3, 10–11; JSON E56–E58, E66–E67, E70; B3; v0.3: E77 (drift feeds confidence without repair), E78, E79",
     "sources": [
       "S3",
       "S10",
@@ -131,5 +134,17 @@
       "S9"
     ],
     "review_question": "Distinguish a plan to engage people from completed participation. Review power, conflicting priorities, ownership and how new evidence reframes the challenge."
+  },
+  {
+    "id": "C13",
+    "claim": "Knowledge held only by people is a source of upstream omission and of the assumptions a builder records; eliciting, externalising and validating it acts on both.",
+    "status": "H for the edges; M, bounded, for the indicator (assumption-register entries per artefact set)",
+    "locations": "JSON node tacit, E71-E72, stocks N and P, practices P10-P12; PDF p. 3 (people source)",
+    "sources": [
+      "S14",
+      "S15",
+      "S12"
+    ],
+    "review_question": "The pilot that would measure this has not run. Check that no edge from capture reaches a delivery metric, and that the strong and weak senses of tacit are kept apart in the definitions."
   }
 ]

@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="820" viewBox="0 0 1280 820" font-family="DejaVu Sans, Arial, sans-serif" font-size="13">
+<rect width="1280" height="820" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#51616B"/></marker></defs>
+<text x="40" y="44" font-size="22" font-weight="bold" fill="#18333E">Where knowledge capture acts on quality: the reduced view of the systemic model, v0.3</text>
+<text x="40" y="68" fill="#51616B">Signs and evidence labels only. M = measured, bounded; H = hypothesis. Node and edge ids are the model’s (model.json). The four levers are the capture practices.</text>
+<rect x="20" y="100" width="290" height="700" fill="#EAF4F3" opacity="0.35"/>
+<text x="32" y="124" font-size="11" font-weight="bold" fill="#087E83">PEOPLE AND INTENT</text>
+<rect x="310" y="100" width="290" height="700" fill="#EAF4F3" opacity="0.35"/>
+<text x="322" y="124" font-size="11" font-weight="bold" fill="#087E83">DERIVED ARTEFACTS</text>
+<rect x="600" y="100" width="290" height="700" fill="#EAF4F3" opacity="0.35"/>
+<text x="612" y="124" font-size="11" font-weight="bold" fill="#087E83">PRODUCT</text>
+<rect x="890" y="100" width="290" height="700" fill="#EAF4F3" opacity="0.35"/>
+<text x="902" y="124" font-size="11" font-weight="bold" fill="#087E83">USE AND DELIVERY</text>
+<line x1="146.0" y1="208.0" x2="146.0" y2="300.0" stroke="#51616B" stroke-width="1.6" marker-end="url(#a)" stroke-dasharray="6,5"/>
+<rect x="127.0" y="244.0" width="38" height="20" rx="4" fill="#ffffff" stroke="#CFD9DC"/>
+<text x="146.0" y="258.0" text-anchor="middle" font-size="11" fill="#087E83">+ H</text>
+<line x1="146.0" y1="208.0" x2="146.0" y2="450.0" stroke="#51616B" stroke-width="1.6" marker-end="url(#a)" stroke-dasharray="6,5"/>
+<rect x="127.0" y="319.0" width="38" height="20" rx="4" fill="#ffffff" stroke="#CFD9DC"/>
+<text x="146.0" y="333.0" text-anchor="middle" font-size="11" fill="#087E83">+ H</text>
+<line x1="251.1" y1="300.0" x2="330.9" y2="278.0" stroke="#51616B" stroke-width="1.6" marker-end="url(#a)" stroke-dasharray="6,5"/>
+<rect x="272.0" y="279.0" width="38" height="20" rx="4" fill="#ffffff" stroke="#CFD9DC"/>
+<text x="291.0" y="293.0" text-anchor="middle" font-size="11" fill="#087E83">+ H</text>
+<line x1="252.0" y1="336.3" x2="330.0" y2="341.7" stroke="#51616B" stroke-width="1.6" marker-end="url(#a)" stroke-dasharray="6,5"/>
+<rect x="272.0" y="329.0" width="38" height="20" rx="4" fill="#ffffff" stroke="#CFD9DC"/>
+<text x="291.0" y="343.0" text-anchor="middle" font-size="11" fill="#087E83">+ H</text>
+<line x1="216.1" y1="358.0" x2="365.9" y2="420.0" stroke="#51616B" stroke-width="1.6" marker-end="url(#a)" stroke-dasharray="6,5"/>
+<rect x="272.0" y="379.0" width="38" height="20" rx="4" fill="#ffffff" stroke="#CFD9DC"/>
+<text x="291.0" y="393.0" text-anchor="middle" font-size="11" fill="#087E83">+ H</text>
+<line x1="542.0" y1="249.0" x2="620.0" y2="249.0" stroke="#51616B" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="562.0" y="239.0" width="38" height="20" rx="4" fill="#ffffff" stroke="#CFD9DC"/>
+<text x="581.0" y="253.0" text-anchor="middle" font-size="11" fill="#087E83">+ M</text>
+<line x1="620.0" y1="249.0" x2="542.0" y2="249.0" stroke="#51616B" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="562.0" y="239.0" width="38" height="20" rx="4" fill="#ffffff" stroke="#CFD9DC"/>
+<text x="581.0" y="253.0" text-anchor="middle" font-size="11" fill="#087E83">+ M</text>
+<line x1="520.1" y1="320.0" x2="641.9" y2="278.0" stroke="#51616B" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="562.0" y="289.0" width="38" height="20" rx="4" fill="#ffffff" stroke="#CFD9DC"/>
+<text x="581.0" y="303.0" text-anchor="middle" font-size="11" fill="#087E83">+ M</text>
+<line x1="726.0" y1="186.0" x2="726.0" y2="220.0" stroke="#51616B" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="707.0" y="193.0" width="38" height="20" rx="4" fill="#ffffff" stroke="#CFD9DC"/>
+<text x="726.0" y="207.0" text-anchor="middle" font-size="11" fill="#087E83">+ M</text>
+<line x1="726.0" y1="278.0" x2="726.0" y2="380.0" stroke="#51616B" stroke-width="1.6" marker-end="url(#a)" stroke-dasharray="6,5"/>
+<rect x="707.0" y="319.0" width="38" height="20" rx="4" fill="#ffffff" stroke="#CFD9DC"/>
+<text x="726.0" y="333.0" text-anchor="middle" font-size="11" fill="#087E83">+ H</text>
+<line x1="832.0" y1="409.0" x2="910.0" y2="409.0" stroke="#51616B" stroke-width="1.6" marker-end="url(#a)" stroke-dasharray="6,5"/>
+<rect x="852.0" y="399.0" width="38" height="20" rx="4" fill="#ffffff" stroke="#CFD9DC"/>
+<text x="871.0" y="413.0" text-anchor="middle" font-size="11" fill="#087E83">+ H</text>
+<line x1="512.5" y1="478.0" x2="649.5" y2="530.0" stroke="#51616B" stroke-width="1.6" marker-end="url(#a)" stroke-dasharray="6,5"/>
+<rect x="562.0" y="494.0" width="38" height="20" rx="4" fill="#ffffff" stroke="#CFD9DC"/>
+<text x="581.0" y="508.0" text-anchor="middle" font-size="11" fill="#8D5725">- H</text>
+<line x1="726.0" y1="530.0" x2="726.0" y2="438.0" stroke="#51616B" stroke-width="1.6" marker-end="url(#a)" stroke-dasharray="6,5"/>
+<rect x="707.0" y="474.0" width="38" height="20" rx="4" fill="#ffffff" stroke="#CFD9DC"/>
+<text x="726.0" y="488.0" text-anchor="middle" font-size="11" fill="#8D5725">- H</text>
+<line x1="146.0" y1="700.0" x2="146.0" y2="358.0" stroke="#51616B" stroke-width="1.6" marker-end="url(#a)" stroke-dasharray="6,5"/>
+<rect x="127.0" y="519.0" width="38" height="20" rx="4" fill="#ffffff" stroke="#CFD9DC"/>
+<text x="146.0" y="533.0" text-anchor="middle" font-size="11" fill="#8D5725">- H</text>
+<line x1="146.0" y1="700.0" x2="146.0" y2="508.0" stroke="#51616B" stroke-width="1.6" marker-end="url(#a)" stroke-dasharray="6,5"/>
+<rect x="127.0" y="594.0" width="38" height="20" rx="4" fill="#ffffff" stroke="#CFD9DC"/>
+<text x="146.0" y="608.0" text-anchor="middle" font-size="11" fill="#8D5725">- H</text>
+<line x1="244.9" y1="700.0" x2="627.1" y2="588.0" stroke="#51616B" stroke-width="1.6" marker-end="url(#a)" stroke-dasharray="6,5"/>
+<rect x="417.0" y="634.0" width="38" height="20" rx="4" fill="#ffffff" stroke="#CFD9DC"/>
+<text x="436.0" y="648.0" text-anchor="middle" font-size="11" fill="#087E83">+ H</text>
+<line x1="496.1" y1="598.0" x2="665.9" y2="680.0" stroke="#51616B" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="562.0" y="629.0" width="38" height="20" rx="4" fill="#ffffff" stroke="#CFD9DC"/>
+<text x="581.0" y="643.0" text-anchor="middle" font-size="11" fill="#087E83">+ M</text>
+<line x1="620.0" y1="712.7" x2="252.0" y2="725.3" stroke="#51616B" stroke-width="1.6" marker-end="url(#a)" stroke-dasharray="6,5"/>
+<rect x="417.0" y="709.0" width="38" height="20" rx="4" fill="#ffffff" stroke="#CFD9DC"/>
+<text x="436.0" y="723.0" text-anchor="middle" font-size="11" fill="#8D5725">- H</text>
+<line x1="910.9" y1="610.0" x2="831.1" y2="588.0" stroke="#51616B" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="852.0" y="589.0" width="38" height="20" rx="4" fill="#ffffff" stroke="#CFD9DC"/>
+<text x="871.0" y="603.0" text-anchor="middle" font-size="11" fill="#087E83">+ M</text>
+<line x1="969.3" y1="710.0" x2="772.7" y2="588.0" stroke="#51616B" stroke-width="1.6" marker-end="url(#a)"/>
+<rect x="852.0" y="639.0" width="38" height="20" rx="4" fill="#ffffff" stroke="#CFD9DC"/>
+<text x="871.0" y="653.0" text-anchor="middle" font-size="11" fill="#087E83">+ M</text>
+<line x1="782.1" y1="438.0" x2="959.9" y2="530.0" stroke="#51616B" stroke-width="1.6" marker-end="url(#a)" stroke-dasharray="6,5"/>
+<rect x="852.0" y="474.0" width="38" height="20" rx="4" fill="#ffffff" stroke="#CFD9DC"/>
+<text x="871.0" y="488.0" text-anchor="middle" font-size="11" fill="#087E83">+ H</text>
+<rect x="40" y="150" width="212" height="58" rx="6" fill="#EAF4F3" stroke="#CFD9DC"/>
+<text x="146.0" y="174" text-anchor="middle" fill="#18333E">Knowledge held</text>
+<text x="146.0" y="191" text-anchor="middle" fill="#18333E">only by people</text>
+<text x="46" y="203" font-size="9" fill="#51616B">tacit</text>
+<rect x="40" y="300" width="212" height="58" rx="6" fill="#FBF1E4" stroke="#CFD9DC"/>
+<text x="146.0" y="324" text-anchor="middle" fill="#18333E">Unresolved upstream</text>
+<text x="146.0" y="341" text-anchor="middle" fill="#18333E">intent defects</text>
+<text x="46" y="353" font-size="9" fill="#51616B">updef</text>
+<rect x="40" y="450" width="212" height="58" rx="6" fill="#FBF1E4" stroke="#CFD9DC"/>
+<text x="146.0" y="474" text-anchor="middle" fill="#18333E">Unresolved or invented</text>
+<text x="146.0" y="491" text-anchor="middle" fill="#18333E">decisions (assumptions)</text>
+<text x="46" y="503" font-size="9" fill="#51616B">unknown</text>
+<rect x="40" y="700" width="212" height="58" rx="6" fill="#EAF4F3" stroke="#CFD9DC"/>
+<text x="146.0" y="724" text-anchor="middle" fill="#18333E">Independent intent</text>
+<text x="146.0" y="741" text-anchor="middle" fill="#18333E">validation</text>
+<text x="46" y="753" font-size="9" fill="#51616B">validation</text>
+<rect x="330" y="220" width="212" height="58" rx="6" fill="#FBF1E4" stroke="#CFD9DC"/>
+<text x="436.0" y="244" text-anchor="middle" fill="#18333E">Behaviour-carrying artefacts</text>
+<text x="436.0" y="261" text-anchor="middle" fill="#18333E">contracts, tables, examples</text>
+<text x="336" y="273" font-size="9" fill="#51616B">deriveddef</text>
+<rect x="330" y="320" width="212" height="58" rx="6" fill="#FBF1E4" stroke="#CFD9DC"/>
+<text x="436.0" y="344" text-anchor="middle" fill="#18333E">Explanatory artefacts</text>
+<text x="436.0" y="361" text-anchor="middle" fill="#18333E">models, prose</text>
+<text x="336" y="373" font-size="9" fill="#51616B">explderived</text>
+<rect x="330" y="420" width="212" height="58" rx="6" fill="#FBF1E4" stroke="#CFD9DC"/>
+<text x="436.0" y="444" text-anchor="middle" fill="#18333E">Tests inherit the</text>
+<text x="436.0" y="461" text-anchor="middle" fill="#18333E">same wrong premise</text>
+<text x="336" y="473" font-size="9" fill="#51616B">testdef</text>
+<rect x="330" y="540" width="212" height="58" rx="6" fill="#FBF1E4" stroke="#CFD9DC"/>
+<text x="436.0" y="564" text-anchor="middle" fill="#18333E">Artefact-to-reality</text>
+<text x="436.0" y="581" text-anchor="middle" fill="#18333E">drift</text>
+<text x="336" y="593" font-size="9" fill="#51616B">drift</text>
+<rect x="620" y="128" width="212" height="58" rx="6" fill="#EAF4F3" stroke="#CFD9DC"/>
+<text x="726.0" y="152" text-anchor="middle" fill="#18333E">Platform or</text>
+<text x="726.0" y="169" text-anchor="middle" fill="#18333E">dependency change</text>
+<text x="626" y="181" font-size="9" fill="#51616B">depchange</text>
+<rect x="620" y="220" width="212" height="58" rx="6" fill="#FBF1E4" stroke="#CFD9DC"/>
+<text x="726.0" y="244" text-anchor="middle" fill="#18333E">Implementation</text>
+<text x="726.0" y="261" text-anchor="middle" fill="#18333E">defects</text>
+<text x="626" y="273" font-size="9" fill="#51616B">codedef</text>
+<rect x="620" y="380" width="212" height="58" rx="6" fill="#FBF1E4" stroke="#CFD9DC"/>
+<text x="726.0" y="404" text-anchor="middle" fill="#18333E">Escaped product</text>
+<text x="726.0" y="421" text-anchor="middle" fill="#18333E">defects</text>
+<text x="626" y="433" font-size="9" fill="#51616B">escape</text>
+<rect x="620" y="530" width="212" height="58" rx="6" fill="#EAF4F3" stroke="#CFD9DC"/>
+<text x="726.0" y="554" text-anchor="middle" fill="#18333E">Effective independent</text>
+<text x="726.0" y="571" text-anchor="middle" fill="#18333E">detection</text>
+<text x="626" y="583" font-size="9" fill="#51616B">detection</text>
+<rect x="620" y="680" width="212" height="58" rx="6" fill="#FBF1E4" stroke="#CFD9DC"/>
+<text x="726.0" y="704" text-anchor="middle" fill="#18333E">Unwarranted</text>
+<text x="726.0" y="721" text-anchor="middle" fill="#18333E">confidence</text>
+<text x="626" y="733" font-size="9" fill="#51616B">confidence</text>
+<rect x="910" y="380" width="212" height="58" rx="6" fill="#FBF1E4" stroke="#CFD9DC"/>
+<text x="1016.0" y="404" text-anchor="middle" fill="#18333E">Adverse outcomes</text>
+<text x="1016.0" y="421" text-anchor="middle" fill="#18333E">in use</text>
+<text x="916" y="433" font-size="9" fill="#51616B">harm</text>
+<rect x="910" y="530" width="212" height="58" rx="6" fill="#EAF4F3" stroke="#CFD9DC"/>
+<text x="1016.0" y="554" text-anchor="middle" fill="#18333E">Delivery performance</text>
+<text x="1016.0" y="571" text-anchor="middle" fill="#18333E">five DORA metrics</text>
+<text x="916" y="583" font-size="9" fill="#51616B">metrics: cfr, drr, clt, fdrt, df</text>
+<rect x="910" y="610" width="212" height="58" rx="6" fill="#EAF4F3" stroke="#CFD9DC"/>
+<text x="1016.0" y="634" text-anchor="middle" fill="#18333E">Diverse independent</text>
+<text x="1016.0" y="651" text-anchor="middle" fill="#18333E">derivation</text>
+<text x="916" y="663" font-size="9" fill="#51616B">diverse</text>
+<rect x="910" y="710" width="212" height="58" rx="6" fill="#EAF4F3" stroke="#CFD9DC"/>
+<text x="1016.0" y="734" text-anchor="middle" fill="#18333E">Completeness against</text>
+<text x="1016.0" y="751" text-anchor="middle" fill="#18333E">an inventory</text>
+<text x="916" y="763" font-size="9" fill="#51616B">completeness</text>
+<rect x="40" y="126" width="212" height="20" rx="10" fill="#2E7D5B"/>
+<text x="146.0" y="140" text-anchor="middle" font-size="11" fill="#ffffff">L1 · elicit (P10)</text>
+<rect x="40" y="676" width="212" height="20" rx="10" fill="#2E7D5B"/>
+<text x="146.0" y="690" text-anchor="middle" font-size="11" fill="#ffffff">L2 · owner validates (P12)</text>
+<rect x="330" y="516" width="212" height="20" rx="10" fill="#2E7D5B"/>
+<text x="436.0" y="530" text-anchor="middle" font-size="11" fill="#ffffff">L3 · externalise + register (P11)</text>
+<rect x="620" y="506" width="212" height="20" rx="10" fill="#2E7D5B"/>
+<text x="726.0" y="520" text-anchor="middle" font-size="11" fill="#ffffff">L4 · calibrated oracle (P9)</text>
+<text x="40" y="792" font-size="11" fill="#51616B">Reverse path E73 and dependency source E74 (review F1); explanatory artefacts attenuated by precedence E76 (F3, degradation D1); drift feeding confidence E77 (F4).</text>
+<text x="40" y="808" font-size="11" fill="#51616B">Diverse derivation E78 and completeness E79 as detection inputs (F2, F5). The people-side edges E71 and E72 and the path to delivery metrics are hypotheses until the pilot runs.</text>
+</svg>

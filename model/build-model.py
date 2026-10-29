@@ -8,12 +8,12 @@ from matplotlib.patches import FancyBboxPatch, FancyArrowPatch, Rectangle
 from matplotlib.font_manager import FontProperties
 from matplotlib.textpath import TextToPath
 
-ROOT = Path(__file__).resolve().parents[1]
-spec = importlib.util.spec_from_file_location('data', ROOT/'work/model-data.py')
+ROOT = Path(__file__).resolve().parent
+spec = importlib.util.spec_from_file_location('data', ROOT/'model-data.py')
 data = importlib.util.module_from_spec(spec); spec.loader.exec_module(data)
 M=data.MODEL
-OUT=ROOT/'output'; OUT.mkdir(exist_ok=True)
-QA=ROOT/'work/rendered'; QA.mkdir(parents=True,exist_ok=True)
+OUT=ROOT
+QA=ROOT/'rendered'; QA.mkdir(parents=True,exist_ok=True)
 W,H=595.28,841.89
 INK='#18333E'; MUTED='#51616B'; TEAL='#087E83'; PALE='#EAF4F3'; LINE='#CFD9DC'; AMBER='#8D5725'; AMBERPALE='#FBF1E4'
 BODY=10.2
@@ -46,7 +46,7 @@ def page(title,kicker,subtitle=None,landscape=False):
     fig=plt.figure(figsize=(W/72,H/72),dpi=130,facecolor='white')
     ax=fig.add_axes([0,0,1,1]);ax.set_xlim(0,W);ax.set_ylim(H,0);ax.axis('off')
     ax.text(44,28,'LEGIBLE / SYSTEMIC IMPACT MODEL',color=TEAL,fontsize=8.4,weight='bold',va='top')
-    ax.text(W-44,28,'v0.2 · 28 OCT 2026',color=MUTED,fontsize=8.4,ha='right',va='top')
+    ax.text(W-44,28,f"v{M['version']} · {M['date'][8:10]} {['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'][int(M['date'][5:7])-1]} {M['date'][:4]}",color=MUTED,fontsize=8.4,ha='right',va='top')
     title_end=text(44,62,title,W-88,size=24,weight='bold',leading=29)
     kicker_y=max(101,title_end+10)
     text(44,kicker_y,kicker,W-88,size=10.2,color=TEAL,weight='bold')
@@ -110,7 +110,7 @@ def finish():
     fig.savefig(QA/f'page-{number:02d}.png',dpi=120)
 
 # 1 - Synthesis
-y=page('Quality emerges from the system','A causal model of the 18 artefact classes on fdurieux.github.io')
+y=page('Quality emerges from the system',f"A causal model of the {len(M['inventory'])} artefact classes on fdurieux.github.io")
 y=para(y,'Tools affect outcomes through the defects they reveal, the decisions people make, and the way work flows. The same gate can prevent rework or create a bottleneck. Its net effect depends on precision, ownership, timing, adoption and independent validation.',11)
 y=box(y,'Four connected lenses; an explicit cascade','The four layers are distinct, not independent. Wrong or missing upstream intent can be inherited by models, code and tests, with consequences for users and delivery. Page 3 makes propagation, shared-error blindness and containment visible. Your supplied definitions now anchor the model.',PALE)
 top=y+5
@@ -127,7 +127,7 @@ y=top+189
 y=label(y,'The central reinforcing loop','Effective checking → validated correction → reliable shared knowledge → fewer escaped defects → less reactive work → more capacity for prevention. The last step requires an explicit allocation decision.')
 y=label(y,'The competing failure loop','Stricter controls → greater gate burden → longer waits → larger batches → more failed changes → pressure for still stricter controls. A more comprehensive gate can make the system perform worse.')
 y=label(y,'The purpose and boundary','Follow one application or service from hypothesis or technical-change need through production use and learning. Optimize useful, safe outcomes and sustainable change capability. Keep suppliers, platform constraints and release policy visible.')
-y=para(y,'Model contents: 18 artefact mappings · your 9 quality elements · 5 delivery metrics · 8 closed feedback loops · an explicit defect cascade · stocks, interventions and a measurement design.',9.5)
+y=para(y,f"Model contents: {len(M['inventory'])} artefact mappings · your 9 quality elements · 5 delivery metrics · {len(M['loops'])} closed feedback loops · an explicit defect cascade, both ways · stocks, interventions and a measurement design.",9.5)
 
 # 2 - quality
 y=page('What “quality” means here','Your nine quality elements, in the supplied order [S9]', 'Software quality concerns meeting users’ needs, behaving under real conditions and remaining maintainable over time. The meanings below reproduce your definitions; the indicators are proposed measurements.')
@@ -142,28 +142,38 @@ y=page('How defects cascade','One upstream defect can be reproduced, hidden and 
 for x,w,label_ in [(44,350,'ARTEFACT QUALITY'),(422,176,'PRODUCT QUALITY'),(622,176,'QUALITY IN USE')]:
     ax.add_patch(Rectangle((x,156),w,195,facecolor=PALE,edgecolor='none',alpha=.42))
     text(x+8,163,label_,w-16,size=9,weight='bold',color=TEAL)
+node(55,165,141,42,'Knowledge held\nonly by people')
+arrow((125,207),(125,233),'+')
 node(55,233,141,58,'Unresolved intent defects\nwrong / missing / stale',color=AMBERPALE)
-node(243,191,139,49,'Defects in models\nand contracts',color=AMBERPALE)
-node(243,289,139,49,'Tests inherit the\nsame wrong premise',color=AMBERPALE)
-node(430,191,160,49,'Faulty implementation\nbehaviour / data / controls',color=AMBERPALE)
-node(430,289,160,49,'Undetected / escaped\nproduct defects',color=AMBERPALE)
+node(243,178,139,52,'Behaviour-carrying artefacts\ncontracts, tables, examples',color=AMBERPALE)
+node(243,240,139,44,'Explanatory artefacts\nmodels, prose',color=AMBERPALE)
+node(243,300,139,44,'Tests inherit the\nsame wrong premise',color=AMBERPALE)
+node(430,175,160,44,'Faulty implementation\nbehaviour / data / controls',color=AMBERPALE)
+node(430,232,112,36,'Platform or\ndependency change')
+node(430,296,160,44,'Undetected / escaped\nproduct defects',color=AMBERPALE)
 node(630,191,160,49,'Operational exposure\nusers / transactions / time')
 node(630,289,160,49,'Adverse outcomes\nfor users and operators',color=AMBERPALE)
-arrow((196,247),(243,215),'+');arrow((196,278),(243,313),'+')
-arrow((382,215),(430,215),'+');arrow((382,313),(430,313),'+')
-arrow((510,240),(510,289),'+');arrow((590,313),(630,313),'+')
+arrow((196,247),(243,204),'+');arrow((196,262),(243,262),'+');arrow((196,278),(243,322),'+')
+arrow((382,198),(430,194),'+');arrow((430,212),(382,218),'+',rad=-.35)
+arrow((382,262),(430,210),'+');arrow((382,322),(430,318),'+')
+arrow((486,232),(486,219));ax.text(496,226,'+',fontsize=10,color=TEAL,ha='center',va='center')
+arrow((566,219),(566,296),'+');arrow((590,318),(630,313),'+')
 arrow((710,240),(710,289),'+')
 text(285,366,'Tests and code can agree\nwhile both are wrong.',120,size=9.3,color=AMBER)
+text(300,230,'read back\nfrom code',70,size=7.6,color=AMBER)
+text(244,288,'attenuated unless the only\nbehavioural input',139,size=7.6,color=MUTED)
 ax.add_patch(Rectangle((422,386),376,92,facecolor=PALE,edgecolor='none',alpha=.42))
 text(630,396,'DELIVERY PERFORMANCE',160,size=8.5,weight='bold',color=TEAL)
 node(430,416,160,50,'Rework and\nincident workload',color=AMBERPALE)
 node(630,416,160,50,'DORA outcomes\nsee per-metric conditions')
-arrow((510,338),(510,416),'+');arrow((590,441),(630,441))
+arrow((510,340),(510,416),'+');arrow((590,441),(630,441))
 node(44,416,174,50,'Independent intent and\noutcome validation',color=PALE)
 arrow((119,416),(119,291),'−')
-arrow((218,416),(243,338),'−')
-text(44,486,'Amplifiers: dependent reach · shared-oracle blindness · late discovery and repair scope · operational exposure.',754,size=10,weight='bold')
-text(44,507,'Evidence: model-to-code transfer has bounded experimental support [S3]. The full cascade and DORA effects are hypotheses; dependency and change-impact guidance is in [S11]. More downstream impact is possible, not inevitable.',754,size=9.4,color=MUTED)
+arrow((218,416),(243,344),'−')
+node(243,416,160,50,'Drift under a green gate:\nunwarranted confidence',color=AMBERPALE)
+arrow((243,441),(218,441),'−')
+text(44,486,'Amplifiers: reach · shared-oracle blindness · late discovery · exposure. Attenuator: a higher-ranked layer that still states the behaviour.',754,size=9.2,weight='bold')
+text(44,507,'Evidence: model-to-code transfer, the reverse path from code, attenuation by precedence and a green gate over drift have bounded experimental support [S3, S12, S13]. The people-side source, the full cascade and its DORA effects are hypotheses. More downstream impact is possible, not inevitable.',754,size=9.2,color=MUTED)
 fig.savefig(OUT/'legible-defect-cascade.png',dpi=180)
 
 # 3 - metrics
@@ -175,8 +185,9 @@ y=para(y,'Track timestamps for hypothesis, first relevant code commit, productio
 y=box(y,'Additional guardrails','User task success; SLO attainment and incident impact; security and safety outcomes; performance; accessibility; debt trend; staff workload. DORA alone cannot tell whether a useful, safe product was built.')
 
 # 4-6 - inventory
-for start,end in [(0,5),(5,10),(10,14),(14,18)]:
-    y=page(f'Artefact pathways {start+1:02d}–{end:02d}','All 18 inventory rows retained; site states are preserved [S1]', '“Covered” means that checks exist for some properties. “Planned” and “open” are not credited as deployed capability. Quality and metric codes are defined in the preceding sections.')
+_n=len(M['inventory'])
+for start,end in [(0,5),(5,9),(9,13),(13,17),(17,_n)]:
+    y=page(f'Artefact pathways {start+1:02d}–{end:02d}',f'All {_n} inventory rows; site states are preserved [S1]', '“Covered” means that checks exist for some properties. “Planned” and “open” are not credited as deployed capability. Quality and metric codes are defined in the preceding sections.')
     for r in M['inventory'][start:end]:
         y=text(44,y,r['id']+'  '+r['artefact'],395,size=11.2,weight='bold')+2
         ax.text(551,y-16,r['state'].upper(),fontsize=8.1,color=TEAL,ha='right',va='top')
@@ -185,7 +196,7 @@ for start,end in [(0,5),(5,10),(10,14),(14,18)]:
         y=text(44,y,'Quality: '+', '.join(r['quality'])+'. '+r['route'],507,size=9.35)+3
         y=text(44,y,'Limit: '+r['limit'],507,size=9.05,color=AMBER)+7
         rule(y);y+=9
-    if end==18:
+    if end==_n:
         y=label(y,'Coverage is uneven; tool effects are not additive','The clearest proposed paths concern correctness, compatibility and maintainability. Performance, usability, security and other properties need their own verification. Overlapping tools do not create additive benefits; shared assumptions can create common-mode failure.')
 
 # 7-8 - loops
@@ -231,6 +242,7 @@ y=page('Stocks, delays and bottlenecks','A dynamic structure, without invented n
 y=table(y,['Stock','Additions / removals','What the measure does not mean'],[[r[0]+' · '+r[1]+'\n'+r[2],r[3],r[4]] for r in M['stocks']],[146,202,159],size=9.6,pad=7)
 y=label(y,'Conservation statements','U(next) = U + introduced defects − validated corrections.\nT(next) = T + newly deferred effort + re-estimated drift burden − retired effort.\nK(next) = K + validated knowledge − invalidated or stale knowledge.\nW(next) = W + admitted changes − completed changes − abandoned changes.')
 y=para(y,'Use consistent units and periods. A future simulation needs locally estimated rates, delays and capacity constraints, with stocks bounded at zero. These are bookkeeping structures, not fitted equations.',9.8)
+y=page('Delays and bottlenecks','Time bands and saturation are assumptions to check locally')
 y=label(y,'Three relevant delays','Minutes to a change: check feedback, triage and author corrections. Days to weeks: altered implementation and escaped-defect observations. Weeks to months: confidence, skills, debt repayment and rule maintenance. These time bands are assumptions to check locally.')
 y=label(y,'Why the effect is nonlinear','Coverage saturates: the next rule can add little value. Low precision consumes scarce attention. As demand approaches available review capacity, waiting can rise sharply. Better upstream information may not improve delivery if release policy or deployment infrastructure remains the bottleneck.')
 
@@ -243,7 +255,11 @@ y=box(y,'A change in incentives is a stronger intervention than a score target',
 
 # 11 - practices and leverage
 y=page('Interventions that change the loops','Use the six gate-contract properties as a system, with intent validation')
-for p in M['practices']:
+for p in M['practices'][:8]:
+    y=text(44,y,p[0]+'  '+p[1],507,size=11,weight='bold')+2
+    y=text(44,y,p[2]+'. '+p[3],507,size=9.8)+11
+y=page('Interventions, continued','Four practices added in v0.3: one measured, three from the departing-expert plan')
+for p in M['practices'][8:]:
     y=text(44,y,p[0]+'  '+p[1],507,size=11,weight='bold')+2
     y=text(44,y,p[2]+'. '+p[3],507,size=9.8)+11
 y=label(y,'Suggested order of leverage','1. Fix the purpose: useful, safe outcomes rather than passing scores.\n2. Clarify decision rights: who resolves missing intent and accepts residual risk.\n3. Shorten information feedback: author-local checks and usable incident evidence.\n4. Adjust flow and rules: precision, thresholds, ratchets and WIP limits.\n5. Add tool coverage only where an observed defect class justifies it.')
@@ -272,11 +288,14 @@ y=table(y,['Record','Why it matters'],[
 y=label(y,'Evaluate direction and trade-offs, not a vanity score','Define acceptable gate burden and the targeted quality improvement before enforcement. Compare similar change cohorts or use a phased introduction with a credible comparison service. Inspect pre-existing trends and changes in staffing, demand, release policy, test coverage and incident reporting.')
 y=para(y,'Show deployment counts and failure/rework counts alongside rates. For CLT and recovery, show distributions and event counts; fewer incidents can change which failures remain. If no failed deployments occur, report no observed recovery-time sample, not zero recovery time. No single-service before/after result proves causality.',9.8)
 y=box(y,'What is actually measured in pumllint','The author-less repair experiment raised the low-maturity tier’s gate results while executed pass rate fell 5.9 percentage points relative to its degraded baseline. This supports a specific “green but wrong” failure mode on that instrument. It does not estimate a DORA effect or establish the same effect for every artefact class. [S3]')
+y=page('What the out-of-sample test measured','v0.3: the review and the degradation test, both in pumllint')
+y=box(y,'What the out-of-sample test measured (v0.3)','A kit derived from code alone let independent agents rebuild a 3 500-line program cell for cell; the same route copied the code\'s defects into the kit, and a suite calibrated on the code scored the inheritance as correct. Fifteen defects planted in the kit, one layer at a time: six reached the code, all six passed the kit\'s own suite and failed the independent one, every outcome following the declared precedence of the layers. [S12, S13]',AMBERPALE)
 y=label(y,'Evidence status of this whole model','M: bounded local experiment. R: related primary capability research. H: proposed causal mechanism. I: site inventory. All tool-to-production-DORA paths remain hypotheses here; no production intervention dataset was supplied.')
 
 # 14 - provenance and next use
 y=page('Sources and model maintenance','Readable report plus a machine-readable causal graph')
 for s in M['sources']:
+    if s['id']=='S10':y=page('Sources, continued','S10 to S15; S12 and S13 are the v0.3 evidence pin')
     y=text(44,y,s['id']+'  '+s['title'],507,size=10.5,weight='bold')+2
     # Short display labels are clickable and kept legible.
     display=s['url'].replace('https://','')
@@ -298,11 +317,11 @@ else:print('Layout bounds OK')
 
 with PdfPages(OUT/'legible-systemic-impact-model.pdf',metadata={'Title':M['title'],'Author':'Prepared for Frederik Durieux','Subject':'Conditional causal model: defect propagation across artefacts, products, use and delivery'}) as pdf:
     for f in pages:pdf.savefig(f)
-(OUT/'legible-systemic-impact-model.json').write_text(json.dumps(M,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+(OUT/'model.json').write_text(json.dumps(M,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 
 # Meaningful structural verification of the model.
 ids={n['id'] for n in M['nodes']}; edges={e['id']:e for e in M['edges']}
-assert len(M['inventory'])==18 and len({a['id'] for a in M['inventory']})==18
+assert len({a['id'] for a in M['inventory']})==len(M['inventory'])>=18
 assert len(M['quality'])==9 and len(M['metrics'])==5
 assert all(e['source'] in ids and e['target'] in ids and e['polarity'] in ('+','-') for e in M['edges'])
 assert all(e['mechanism'] and e['condition'] and e['delay'] and e['evidence'] for e in M['edges'])
@@ -312,5 +331,5 @@ for L in M['loops']:
     assert ((-1)**sum(e['polarity']=='-' for e in ls)==1)==(L['type']=='R')
 assert all(q in {r[0] for r in M['quality']} for a in M['inventory'] for q in a['quality'])
 assert all(s in {r['id'] for r in M['sources']} for a in M['inventory'] for s in a['source'])
-(QA/'verification.json').write_text(json.dumps({'pages':len(pages),'nodes':len(ids),'edges':len(edges),'loops':len(M['loops']),'inventory_rows':len(M['inventory']),'layout_overflow':overflow},indent=2))
+(ROOT/'review'/'verification.json').write_text(json.dumps({'pages':len(pages),'nodes':len(ids),'edges':len(edges),'loops':len(M['loops']),'inventory_rows':len(M['inventory']),'layout_overflow':overflow},indent=2))
 print(json.dumps({'pdf':str(OUT/'legible-systemic-impact-model.pdf'),'pages':len(pages),'nodes':len(ids),'edges':len(edges),'loops':len(M['loops'])}))
