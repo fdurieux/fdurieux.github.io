@@ -1,0 +1,135 @@
+[
+  {
+    "id": "C01",
+    "claim": "The model covers the 18 dated inventory classes while preserving covered/planned/open distinctions.",
+    "status": "I",
+    "locations": "PDF pp. 5–8; JSON inventory A01–A18",
+    "sources": [
+      "S1",
+      "S2"
+    ],
+    "review_question": "Check each row, tool/practice description and boundary; distinguish an existing tool from the programme capability being planned."
+  },
+  {
+    "id": "C02",
+    "claim": "Diagram quality relates to generated-code behaviour in bounded sequence-diagram experiments.",
+    "status": "M, bounded",
+    "locations": "JSON E03 and E51; PDF pp. 3, 16",
+    "sources": [
+      "S3"
+    ],
+    "review_question": "Inspect execution versus fidelity, experimental units, suite construction and transfer beyond diagrams. Do not infer production or whole-inventory causality."
+  },
+  {
+    "id": "C03",
+    "claim": "Author-less repair can pass gates while preserving or inventing wrong semantics.",
+    "status": "M for reported arm; H for organization-wide consequences",
+    "locations": "PDF R4, p. 10; p. 16; JSON E27–E31",
+    "sources": [
+      "S3"
+    ],
+    "review_question": "Audit the L1/L2 comparisons and denominators. Passing a gate is not an intended-behaviour guarantee; avoid a blanket anti-repair conclusion."
+  },
+  {
+    "id": "C04",
+    "claim": "Author participation improved reported repair outcomes in a bounded with-author arm.",
+    "status": "M, source-reported",
+    "locations": "Handoff evidence/pumllint-findings-to-audit.md; S3 with-author results",
+    "sources": [
+      "S3"
+    ],
+    "review_question": "This result is less prominent in the PDF. Assess balance, LLM-author limitations, leakage audit, residual failures and causal interpretation."
+  },
+  {
+    "id": "C05",
+    "claim": "Upstream errors can enter dependent artefacts, implementation and tests.",
+    "status": "H overall; bounded M for model-to-code leg",
+    "locations": "PDF p. 3; JSON E50–E55, E69–E70",
+    "sources": [
+      "S1",
+      "S3",
+      "S11"
+    ],
+    "review_question": "Demand an explicit inheritance mechanism, dependency conditions, independent downstream fault sources and observation strategy."
+  },
+  {
+    "id": "C06",
+    "claim": "Shared wrong premises can make tests and code agree, concealing errors.",
+    "status": "H",
+    "locations": "PDF p. 3; JSON E52–E54, E69–E70",
+    "sources": [
+      "S3",
+      "S10"
+    ],
+    "review_question": "Check that the full common-mode pathway is labelled as a mechanism, not directly measured by the cited repair experiment."
+  },
+  {
+    "id": "C07",
+    "claim": "Impact can grow through reach, detection delay, correction scope and operational exposure.",
+    "status": "H; related engineering guidance",
+    "locations": "PDF pp. 3, 11–12; JSON E59–E65; cascade",
+    "sources": [
+      "S11"
+    ],
+    "review_question": "Keep spread, severity, repair cost and exposure separate. No universal multiplier or monotonic decline. Do not count copies as independent root defects."
+  },
+  {
+    "id": "C08",
+    "claim": "Independent validation and outcome-led correction can interrupt the cascade.",
+    "status": "H; bounded related repair evidence",
+    "locations": "PDF pp. 3, 10–11; JSON E56–E58, E66–E67, E70; B3",
+    "sources": [
+      "S3",
+      "S10",
+      "S11"
+    ],
+    "review_question": "Check independence, authority, incentives, response capacity and delays. Observing harm does not automatically cause learning."
+  },
+  {
+    "id": "C09",
+    "claim": "Gate burden can increase waiting, batching and bypass.",
+    "status": "R-related / H local loop",
+    "locations": "PDF p. 9; JSON R2, R3",
+    "sources": [
+      "S6",
+      "S7",
+      "S8"
+    ],
+    "review_question": "Do the local signs, conditions and loop closure follow? Compare prevention benefit with gate and approval burden."
+  },
+  {
+    "id": "C10",
+    "claim": "Quality interventions may affect each DORA metric through different conditional paths.",
+    "status": "H for tool effects; definitions from S4",
+    "locations": "PDF p. 4; JSON metrics and delivery edges",
+    "sources": [
+      "S4",
+      "S5",
+      "S6",
+      "S7",
+      "S8"
+    ],
+    "review_question": "Check boundaries and denominators; deployment rework differs from all rework; fewer failures alone do not imply shorter recovery time."
+  },
+  {
+    "id": "C11",
+    "claim": "All nine quality elements matter, while inventory coverage is uneven.",
+    "status": "User definition plus H mapping",
+    "locations": "PDF pp. 2, 5–8; JSON quality and inventory",
+    "sources": [
+      "S1",
+      "S9"
+    ],
+    "review_question": "Q4 has no explicit direct inventory assignment. Decide whether this is an appropriately identified gap or an omitted justified pathway; do not force benefits into every category."
+  },
+  {
+    "id": "C12",
+    "claim": "The model should support participatory systemic design and sustained learning.",
+    "status": "User requirement; proposed enactment",
+    "locations": "PDF pp. 13–16; JSON actors, systemic_elements, hypotheses",
+    "sources": [
+      "S9"
+    ],
+    "review_question": "Distinguish a plan to engage people from completed participation. Review power, conflicting priorities, ownership and how new evidence reframes the challenge."
+  }
+]

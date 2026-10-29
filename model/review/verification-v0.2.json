@@ -1,0 +1,63 @@
+{
+  "pages": 17,
+  "nodes": 46,
+  "edges": 70,
+  "loops": 8,
+  "inventory_rows": 18,
+  "layout_overflow": [],
+  "date": "2026-10-28",
+  "model_version": "0.2",
+  "quality_elements": 9,
+  "systemic_design_elements": 9,
+  "dora_metrics": 5,
+  "unique_graph_ids": true,
+  "edge_endpoints_and_source_references_valid": true,
+  "loop_checks": [
+    {
+      "id": "R1",
+      "closed": true,
+      "declared_polarity_matches_links": true
+    },
+    {
+      "id": "R2",
+      "closed": true,
+      "declared_polarity_matches_links": true
+    },
+    {
+      "id": "R3",
+      "closed": true,
+      "declared_polarity_matches_links": true
+    },
+    {
+      "id": "R4",
+      "closed": true,
+      "declared_polarity_matches_links": true
+    },
+    {
+      "id": "B1",
+      "closed": true,
+      "declared_polarity_matches_links": true
+    },
+    {
+      "id": "B2",
+      "closed": true,
+      "declared_polarity_matches_links": true
+    },
+    {
+      "id": "R5",
+      "closed": true,
+      "declared_polarity_matches_links": true
+    },
+    {
+      "id": "B3",
+      "closed": true,
+      "declared_polarity_matches_links": true
+    }
+  ],
+  "quality_mappings_valid": true,
+  "supplied_definitions_preserved_verbatim": true,
+  "pinned_source_git_blobs_verified": 5,
+  "pdf_visual_check": "All pages inspected in a rendered contact sheet; revised pages 2, 3, 11 and 17 also inspected at full size. No identified clipping or overlap in the reviewed render.",
+  "review_status": "Author-side structural and layout QA only. Independent substantive review not performed.",
+  "experimental_replication": false
+}

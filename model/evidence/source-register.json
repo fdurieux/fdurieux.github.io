@@ -1,0 +1,130 @@
+{
+  "date": "2026-10-28",
+  "model_version": "0.2",
+  "model_sources": [
+    {
+      "id": "S1",
+      "title": "Legible site and artefact inventory",
+      "url": "https://github.com/fdurieux/fdurieux.github.io/blob/9ba9b09cb548a5d496e297cecc57d4f576647292/index.html",
+      "scope": "18-row inventory, six gate properties, boundaries; snapshot dated 2026-10-26"
+    },
+    {
+      "id": "S2",
+      "title": "Legible programme roadmap",
+      "url": "https://github.com/fdurieux/fdurieux.github.io/blob/9ba9b09cb548a5d496e297cecc57d4f576647292/ROADMAP.md",
+      "scope": "Shipping, planned and open work; programme gate contract"
+    },
+    {
+      "id": "S3",
+      "title": "pumllint EVIDENCE.md",
+      "url": "https://github.com/fdurieux/pumllint/blob/9d728c8c17e15d288022a47abe5d2293ecc0ba0e/EVIDENCE.md",
+      "scope": "Sequence-diagram code-generation experiments and author-less repair limitations; no production DORA effect measured"
+    },
+    {
+      "id": "S4",
+      "title": "DORA software delivery performance metrics",
+      "url": "https://dora.dev/guides/dora-metrics/",
+      "scope": "Current five metrics and application/service measurement boundary; accessed 2026-10-28"
+    },
+    {
+      "id": "S5",
+      "title": "DORA: documentation quality",
+      "url": "https://dora.dev/capabilities/documentation-quality/",
+      "scope": "Documentation and technical-capability research, not tool-specific intervention proof"
+    },
+    {
+      "id": "S6",
+      "title": "DORA: continuous integration",
+      "url": "https://dora.dev/capabilities/continuous-integration/",
+      "scope": "Fast feedback, frequent integration and automated tests"
+    },
+    {
+      "id": "S7",
+      "title": "DORA: working in small batches",
+      "url": "https://dora.dev/capabilities/working-in-small-batches/",
+      "scope": "Batch size and feedback; capability research"
+    },
+    {
+      "id": "S8",
+      "title": "DORA: streamlining change approval",
+      "url": "https://dora.dev/capabilities/streamlining-change-approval/",
+      "scope": "Heavy approval processes, delays, batching and risk"
+    },
+    {
+      "id": "S9",
+      "title": "User-supplied software quality and systemic-design definitions",
+      "url": "https://github.com/fdurieux/fdurieux.github.io/blob/main/model/task-brief.md",
+      "scope": "Full texts supplied on 2026-10-28 and preserved in the task brief; authoritative definitions"
+    },
+    {
+      "id": "S10",
+      "title": "DORA: test automation",
+      "url": "https://dora.dev/capabilities/test-automation/",
+      "scope": "Maintainable tests of actual user journeys; checks alone do not replace test execution"
+    },
+    {
+      "id": "S11",
+      "title": "NASA: requirements management",
+      "url": "https://www.nasa.gov/reference/6-2-requirements-management/",
+      "scope": "Requirements dependencies, impact analysis and later change cost; engineering guidance, not a measured universal amplification factor"
+    }
+  ],
+  "repository_files": [
+    {
+      "bundle_path": "evidence/repository-snapshots/legible/index.html",
+      "repository": "fdurieux/fdurieux.github.io",
+      "path": "index.html",
+      "commit": "9ba9b09cb548a5d496e297cecc57d4f576647292",
+      "blob_sha": "01ad4fd7d3d357af2408ef2cf765ae24fa558f51",
+      "url": "https://github.com/fdurieux/fdurieux.github.io/blob/9ba9b09cb548a5d496e297cecc57d4f576647292/index.html",
+      "bytes": 25910,
+      "sha256": "d0a112cf545286954d105bc905eae216ef470757808be31fe9e2808bcd8987ba",
+      "git_blob_verified": true
+    },
+    {
+      "bundle_path": "evidence/repository-snapshots/legible/README.md",
+      "repository": "fdurieux/fdurieux.github.io",
+      "path": "README.md",
+      "commit": "9ba9b09cb548a5d496e297cecc57d4f576647292",
+      "blob_sha": "ccaaaefc0015af95fc8263f2a60f4c75914c7f73",
+      "url": "https://github.com/fdurieux/fdurieux.github.io/blob/9ba9b09cb548a5d496e297cecc57d4f576647292/README.md",
+      "bytes": 1249,
+      "sha256": "07c8644a4344ab4551a0d53895b8bfd0944442734fdf22e25e6ab8f13cc3a36e",
+      "git_blob_verified": true
+    },
+    {
+      "bundle_path": "evidence/repository-snapshots/legible/ROADMAP.md",
+      "repository": "fdurieux/fdurieux.github.io",
+      "path": "ROADMAP.md",
+      "commit": "9ba9b09cb548a5d496e297cecc57d4f576647292",
+      "blob_sha": "26ead5cd97c2726fd8bbe9e4b846a258a3859534",
+      "url": "https://github.com/fdurieux/fdurieux.github.io/blob/9ba9b09cb548a5d496e297cecc57d4f576647292/ROADMAP.md",
+      "bytes": 3256,
+      "sha256": "92136e7964e1987157a0f4e91771383844c388d96204a63571201bb76336f35e",
+      "git_blob_verified": true
+    },
+    {
+      "bundle_path": "evidence/repository-snapshots/pumllint/EVIDENCE.md",
+      "repository": "fdurieux/pumllint",
+      "path": "EVIDENCE.md",
+      "commit": "9d728c8c17e15d288022a47abe5d2293ecc0ba0e",
+      "blob_sha": "ecb7ca70b11f7a14347ef9f6e46cb5d059676e4d",
+      "url": "https://github.com/fdurieux/pumllint/blob/9d728c8c17e15d288022a47abe5d2293ecc0ba0e/EVIDENCE.md",
+      "bytes": 47528,
+      "sha256": "4e4fe629c7ede652c970b2e733aef4b6b7a1d2a0566e5884a54a593c2cb8a055",
+      "git_blob_verified": true
+    },
+    {
+      "bundle_path": "evidence/repository-snapshots/pumllint/README.md",
+      "repository": "fdurieux/pumllint",
+      "path": "README.md",
+      "commit": "9d728c8c17e15d288022a47abe5d2293ecc0ba0e",
+      "blob_sha": "e2eb6c1f572929fc1356b5f7ff43222d8a3e85ef",
+      "url": "https://github.com/fdurieux/pumllint/blob/9d728c8c17e15d288022a47abe5d2293ecc0ba0e/README.md",
+      "bytes": 56378,
+      "sha256": "643e7c9c1b707d66771a258da142bba3cb0bf847741adf611767a150904f2ade",
+      "git_blob_verified": true
+    }
+  ],
+  "source_material_note": "Repository snapshots are exact pinned text files, not complete repository checkouts. External primary sources are linked and paraphrased; their full pages are not bundled. The user definitions are included verbatim in the instruction file."
+}
