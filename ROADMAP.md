@@ -45,3 +45,14 @@ pumllint is the reference implementation.
   planned or open items come from that survey's ranked gap list; their
   feasibility verdicts are quoted in the table. No new project repository
   exists yet.
+- *2026-10-29* — The systemic impact model v0.2 committed under `model/`:
+  the source data file, the renderer, the task brief with the supplied
+  definitions, the claim register, the known limitations, the author-side
+  verification and the cascade figure, as reviewed out of sample in
+  pumllint #205 (handoff bundle sha256 `ff499f88…45f3`, 20 files verified
+  against the manifest kept there). The JSON is regenerated from the data
+  file and is byte-identical to the reviewed copy before the one edit: the
+  source S9 link into a personal chat library now points at the task brief
+  in this repository. The reviewed PDF stays in the bundle. `model/CHANGELOG.md`
+  is the model's record from here on; `model/v0.3-change-note.md` is the
+  next revision, drafted and not applied.
