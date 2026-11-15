@@ -26,7 +26,8 @@ pumllint is the reference implementation.
 |---|---|---|---|
 | [pumllint](https://github.com/fdurieux/pumllint) | PlantUML models | shipping | Its own ROADMAP.md |
 | [aris2puml](https://github.com/fdurieux/aris2puml) | ARIS EPC exports | shipping | Its own ROADMAP.md; the in-ARIS gate waits on an adopter with Architect |
-| Cross-artefact identifier gate | requirement ↔ model ↔ test ↔ API operation | planned | First new project. Starts from pumllint `trace` and aris2puml `--manifest`; explicit identifiers only, no semantic matching |
+| Cross-artefact identifier gate | requirement ↔ model ↔ test ↔ API operation | shipping | *[2026-11-15: was planned; now built by [knowgov](https://github.com/fdurieux/knowgov) (statements, provenance, conflicts, the task gate, code-to-knowledge trace; v0.9.1) with [ieam-register](https://github.com/fdurieux/ieam-register) (identities, typed links, approvals; v0.2.13). Their own records: knowgov `backlog/`, ieam-register `decisions/`.]* Was: First new project. Starts from pumllint `trace` and aris2puml `--manifest`; explicit identifiers only, no semantic matching |
+| Settlement benchmark ([knowgov-bench](https://github.com/fdurieux/knowgov-bench), private) | a synthetic task corpus with a hidden independent oracle | planned | *[2026-11-15: repository created private by the maintainer; this state vocabulary has no word for a private research record, so planned until a study reports.]* Study MSX-01 recorded there; the first build is its intent and behaviour inventory; the scored run is parked by the maintainer |
 | Requirements wording linter | textual requirements (INCOSE GtWR, EARS) | planned | Deterministic lexical rules as the gate; ambiguity detection advisory only (Smella: 59 % precision) |
 | EPC toolchain in the open | EPML / EPC conventions | planned | Reader plus ruleset; the only live OSS entry is aris2puml + pumllint |
 | BPMN repository-wide checks | BPMN 2.0 | planned | bpmnlint plugin: cross-model references, 7PMG, score. Never a pumllint pack (pumllint never-build) |
@@ -68,3 +69,51 @@ pumllint is the reference implementation.
   JSON, the PDF, the cascade figure and a reduced knowledge view are
   generated from the data file. First consumer: the knowledge-preservation
   deck's cascade slide.
+- *2026-11-15* — A cross-repository assessment and roadmap (a Codex
+  thread of 2026-11-14, pinned at pumllint `fdecc74`, aris2puml `ca22e13`,
+  knowgov `538618f`, ieam-register `dd545b7` and this repository
+  `099a737`) was read against each repository's record. On the
+  maintainer's go of the same day, its benchmark lands as a settlement
+  benchmark in a private repository, `knowgov-bench`, with its study
+  record (MSX-01) and its decisions there; nothing of its domain, its
+  obligations or its cases comes here. Two table rows move: the
+  benchmark is added as planned, and the cross-artefact identifier gate,
+  planned since 2026-10-26, is marked shipping, because knowgov and
+  ieam-register now build it. The roadmap's other packages land where
+  each repository keeps its record: knowgov's lighthouse readiness as
+  notes on its existing tasks, aris2puml's export identity under its
+  item A1, and the one pumllint gap the assessment reproduced (an
+  unreachable cycle in a state diagram, unflagged) as a pumllint ROADMAP
+  candidate (Arc C).
+  - *Opportunity canvas.* Problem: the programme's claim, that governed
+    knowledge keeps unsupported behaviour out of accepted code, is shown
+    on one proof-of-concept subject and not measured on a task whose
+    acceptance is independent of the specification. Users: the
+    maintainer, an adopter weighing the stack. Solution: a synthetic
+    benchmark whose hidden oracle no generator can read, and a
+    pre-registered study comparing full context, a hand-picked package
+    and a compiled projection. Cost: the build packages, roughly 31–57
+    person-days across the roles the roadmap names; the scored run's
+    model spend is parked and unauthorised. Benefit: a measured,
+    bounded answer, null or not.
+  - *Fit/gap.* Fit: knowgov's task gate, approval bar, execution binding
+    and evidence bundle already exist, and the study uses them through
+    an instance rather than changing a contract (knowgov 0.9 is frozen).
+    Gap: no repository held a hidden oracle, now answered by the private
+    home; independent validation cannot be claimed while one maintainer
+    and AI sessions fill every role, which the study records as its
+    limit; the real source-tool route stays adopter-gated (aris2puml A1).
+  - *SWOT.* Strengths: pre-registration, stop rules fixed before any
+    run, every repository keeping one record. Weaknesses: one person in
+    every role; an optimistic effort estimate. Opportunities: the first
+    measurement of a task-specific projection of the knowledge;
+    a template for an adopter's own study. Threats: a private record the
+    page cannot quote, and a public row that drifts from it; a synthetic
+    domain that rewards guessing familiar conventions, which the
+    protocol counters with deliberately non-canonical rules.
+  - *Advice (the drafter's).* Keep the boundaries; build the benchmark's
+    intent and oracle before any compiler; leave the scored run parked
+    until the build packages are done and the spend is authorised in
+    writing; quote only the study's verdict here, never its content.
+    The page (`index.html`) and the README's "Shipping today" line still
+    show the pre-2026-11-15 state and follow in a page update.
