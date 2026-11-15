@@ -21,8 +21,8 @@ Adopter register: assume no prior knowledge of the artefacts, the tools or
 the SAFe® pipeline. Name a concept before using it. Every value claim carries
 an evidence tag (measured, research, mechanism). A tool is marked "covered"
 only when it exits non-zero on findings; a project is marked "planned" only
-when it has a named artefact class and stays so until a repository with releases exists, or, for a private research
-record, until its study reports.
+when it has a named artefact class and stays so until a repository exists, or,
+for a private research record, until its study reports.
 
 SAFe® and Continuous Delivery Pipeline are trademarks of Scaled Agile, Inc.,
 used as nomenclature only; the pipeline map is this programme's own drawing.
