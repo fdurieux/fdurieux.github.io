@@ -226,11 +226,12 @@ footer p { max-width: 80ch; }
 </div>
 
 <h2>Projects</h2>
-<p>Two exist. The others are planned, in the order their feasibility was assessed, and each stays "planned" until a repository exists. A planned project is a statement of intent, not a tool.</p>
+<p>Three are shipping. The others are planned, in the order their feasibility was assessed, and each stays "planned" until a repository exists; a private research record stays planned until its study reports, because the states have no word for it. A planned project is a statement of intent, not a tool.</p>
 <div class="projects">
   <div class="project"><h3><a href="https://github.com/fdurieux/pumllint">pumllint</a></h3><span class="state covered">shipping</span><p>A linter and maturity scorer for PlantUML diagrams. The reference implementation of the gate contract, with the measured evidence behind the programme's central claim.</p></div>
   <div class="project"><h3><a href="https://github.com/fdurieux/aris2puml">aris2puml</a></h3><span class="state covered">shipping</span><p>Converts ARIS process exports to PlantUML activity diagrams so pumllint can gate them. Makes a process checkable; never makes it pass.</p></div>
-  <div class="project"><h3>Cross-artefact identifier gate</h3><span class="state planned">planned</span><p>One identifier graph across requirements, models, tests and API operations; fail on orphans and unknown references. Builds on pumllint's trace command.</p></div>
+  <div class="project"><h3>Cross-artefact identifier gate</h3><span class="state covered">shipping</span><p>One identifier graph across requirements, models, tests and API operations; fail on orphans and unknown references. Built by <a href="https://github.com/fdurieux/knowgov">knowgov</a> (statements, provenance, conflicts, the task gate, code-to-knowledge trace) with <a href="https://github.com/fdurieux/ieam-register">ieam-register</a> (identities, typed links, approvals).</p></div>
+  <div class="project"><h3>Settlement benchmark</h3><span class="state planned">planned</span><p>A synthetic task corpus with a hidden independent oracle, kept in a private repository. It stays "planned" until a study reports, because the states have no word for a private research record.</p></div>
   <div class="project"><h3>Requirements wording linter</h3><span class="state planned">planned</span><p>Deterministic INCOSE and EARS rules with severities and a baseline. Ambiguity detection is reported, never gated, because its precision is too low to block a build.</p></div>
   <div class="project"><h3>EPC toolchain in the open</h3><span class="state planned">planned</span><p>An EPML reader and an EPC conventions ruleset, so process models from any tool that writes the interchange format can be gated.</p></div>
   <div class="project"><h3>BPMN repository-wide checks</h3><span class="state planned">planned</span><p>Cross-model references, pragmatic modelling guidelines and a score, as a bpmnlint plugin.</p></div>
