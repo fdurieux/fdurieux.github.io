@@ -117,3 +117,29 @@ pumllint is the reference implementation.
     writing; quote only the study's verdict here, never its content.
     The page (`index.html`) and the README's "Shipping today" line still
     show the pre-2026-11-15 state and follow in a page update.
+- *2026-11-15* — The page's cross-artefact consistency row moves from
+  planned to covered, on the maintainer's word of the same day ("yes,
+  count the coverage row as covered"). The page and the README had
+  followed the 2026-11-15 entry above (#4); this row was left planned
+  because no entry gave it a state. Measured against the gate contract:
+  knowgov's task gate exits 0/1/2 with a `--fail-on` threshold, keeps a
+  baseline (`--baseline record|FILE`), writes a JSON report pinned by a
+  schema and SARIF through its annotator, and ships a CI action;
+  ieam-register's checker exits 1 on any error in the identities and
+  typed links; pumllint `trace` still fails on unknown references
+  between diagrams and requirements.
+  - *Opportunity canvas.* Problem: the page called the artefact class
+    planned after the identifier gate had shipped. Users: an adopter
+    reading the table. Solution: mark it covered and name the tools.
+    Cost: one row. Benefit: the table agrees with the projects list.
+  - *Fit/gap.* Fit: exit codes, threshold, baseline, schema-pinned JSON,
+    SARIF and a CI action. Gap: identifiers are explicit, never matched
+    by meaning; knowledge that is consistently wrong in every document
+    passes (knowgov's degradation test, measured); knowgov needs its
+    store's libraries, so it is not zero-dependency.
+  - *SWOT.* Strengths: the row is backed by gates that fail a build.
+    Weaknesses: three repositories behind one row. Opportunities: the
+    lighthouse's instance as the first adopter evidence. Threats: an
+    adopter reading covered as validated, which the row's missing cell
+    answers.
+  - *Advice.* Mark it covered with its limit stated in the row.
